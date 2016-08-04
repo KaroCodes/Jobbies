@@ -3,6 +3,16 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/find"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Find" />
+
+        <item
+            android:id="@+id/ofrer"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Offer" />
+
+        <item
             android:id="@+id/account_settings"
             android:icon="@drawable/ic_menu_camera"
             android:title="Account Setting" />
@@ -23,6 +33,11 @@
             android:id="@+id/app_settings"
             android:icon="@drawable/ic_menu_manage"
             android:title="App Settings" />
+
+        <item
+            android:id="@+id/log_off"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Log Off" />
     </group>
 
 </menu>
