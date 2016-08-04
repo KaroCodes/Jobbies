@@ -63,7 +63,7 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
             jobs = new ArrayList<>();
 
             JobDescription firstJob=new JobDescription();
-            firstJob.setTitle("first job)");
+            firstJob.setTitle("first job");
             firstJob.setPayment(new Payment(10, Currency.getInstance("GBP")));
             Date d1=new Date();
             Date[] dates1={d1};
@@ -71,7 +71,7 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
             jobs.add(firstJob);
 
             JobDescription secondJob=new JobDescription();
-            secondJob.setTitle("second job)");
+            secondJob.setTitle("second job");
             secondJob.setPayment(new Payment(10, Currency.getInstance("GBP")));
             Date d2=new Date();
             Date[] dates2={d2};
@@ -111,7 +111,7 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
                 holder=new ViewHolder();
                 holder.title=((TextView) view.findViewById(R.id.title));
                 holder.by=((TextView) view.findViewById(R.id.by));
-                holder.description=((TextView) view.findViewById(R.id.description));
+                //holder.description=((TextView) view.findViewById(R.id.description));
                 //holder.payment=((TextView) view.findViewById(R.id.payment));
                 holder.time1=((TextView) view.findViewById(R.id.time1));
                 holder.time1=((TextView) view.findViewById(R.id.time2));
@@ -127,8 +127,7 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
 
             JobDescription currJob=jobs.get(i);
             holder.title.setText(currJob.getTitle());
-            holder.by.setText(currJob.getTitle()); // need to change to something with the user
-            holder.description.setText(currJob.getDescription());
+           // holder.by.setText(currJob.getTitle()); // need to change to something with the user
             //holder.payment.setText(Integer.toString(currJob.getPayment().getPrice()));
             Date[] dates=currJob.getDates();
            holder.time1.setText(dates[0].toString());
