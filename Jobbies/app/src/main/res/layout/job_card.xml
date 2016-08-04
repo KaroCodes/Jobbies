@@ -7,7 +7,18 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:id="@+id/image" />
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/by"
+        android:text="by"
+        android:layout_toRightOf="@+id/image"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/payment"
+        android:text="payment"
+        android:layout_toRightOf="@+id/image"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,28 +28,21 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/date"
-        android:text="date"
+        android:id="@+id/time1"
+        android:text="time1"
         android:layout_toRightOf="@+id/image"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/time"
-        android:text="time"
+        android:id="@+id/time2"
         android:layout_toRightOf="@+id/image"
         android:layout_below="@+id/image"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/more_date"
+        android:id="@+id/more"
         android:text="more"
-        android:layout_toRightOf="@+id/date"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/more_time"
-        android:text="more"
-        android:layout_toRightOf="@+id/time"/>
+        android:layout_toRightOf="@+id/time2"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

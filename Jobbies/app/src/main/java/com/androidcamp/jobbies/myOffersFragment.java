@@ -3,6 +3,7 @@ package com.androidcamp.jobbies;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +13,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Date;
 
 /**
  * Created by demouser on 8/4/16.
  */
 public class myOffersFragment extends android.support.v4.app.Fragment{
-    private itemClicked myAactivity;
+   // private itemClicked myAactivity;
     private myAdapter mAdapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.content_my_offers, container, false);
+        View v = inflater.inflate(R.layout.list_view, container, false);
         ListView listview=(ListView) v.findViewById(R.id.my_offers_list_view);
         mAdapter = new myAdapter();
         listview.setAdapter(mAdapter);
@@ -37,7 +40,7 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
         return v;
     }
 
-    public interface itemClicked{
+    /*public interface itemClicked{
         public void showDetails(String name);
     }
 
@@ -49,23 +52,35 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
         else{
             throw new IllegalStateException("the activiry should implement the itemclicked interface");
         }
-    }
+    }*/
 
     public class myAdapter extends BaseAdapter {
 
 
-        private ArrayList<JobDescription> jobs;
-        private int color;
-
-
+        private ArrayList<JobDescription> jobs = new ArrayList<JobDescription>();
+        //debugging
         public myAdapter () {
             jobs = new ArrayList<>();
-            color= Color.BLACK;
+
+            JobDescription firstJob=new JobDescription();
+            firstJob.setTitle("first job)");
+            firstJob.setPayment(new Payment(10, Currency.getInstance("GBP")));
+            Date d1=new Date();
+            Date[] dates1={d1};
+            firstJob.setDates(dates1);
+            jobs.add(firstJob);
+
+            JobDescription secondJob=new JobDescription();
+            secondJob.setTitle("second job)");
+            secondJob.setPayment(new Payment(10, Currency.getInstance("GBP")));
+            Date d2=new Date();
+            Date[] dates2={d2};
+            secondJob.setDates(dates2);
+            jobs.add(secondJob);
         }
 
         public void setQuotes(ArrayList<JobDescription> newJobs) {
             jobs = newJobs;
-            //Log.d("first quote", quotes.get(0).getQuote());
             notifyDataSetChanged();
         }
 
@@ -87,16 +102,22 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
 
         @Override
         public View getView(int i, View convertView, ViewGroup viewGroup) {
+            Log.d("begining","!!!!!");
             View view=null;
-           /* ViewHolder holder;
+            ViewHolder holder;
             if(convertView==null){
                 LayoutInflater inflater= LayoutInflater.from(viewGroup.getContext());
                 view=inflater.inflate(R.layout.job_card, null);
                 holder=new ViewHolder();
-                holder.title((TextView) view.findViewById(R.id.));
-                holder.by((TextView) view.findViewById(R.id.));
-                holder.time((TextView) view.findViewById(R.id.));
-                holder.img((ImageView) view.findViewById(R.id.));
+                holder.title=((TextView) view.findViewById(R.id.title));
+                holder.by=((TextView) view.findViewById(R.id.by));
+                holder.description=((TextView) view.findViewById(R.id.description));
+                //holder.payment=((TextView) view.findViewById(R.id.payment));
+                holder.time1=((TextView) view.findViewById(R.id.time1));
+                holder.time1=((TextView) view.findViewById(R.id.time2));
+                holder.more=((TextView)  view.findViewById(R.id.more));
+                Log.d("after more", holder.more + "");
+                holder.img=((ImageView) view.findViewById(R.id.image));
                 view.setTag(holder);
             }
             else{
@@ -106,53 +127,29 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
 
             JobDescription currJob=jobs.get(i);
             holder.title.setText(currJob.getTitle());
-            holder.by.setText(currJob.get);
-            holder.time.setText(currJob.getTimeFrame());
-
-            String[] dates=currJob.getTimeFrame().getDates();
-
-            if(isMultipleTimes(currJob.getTimeFrame())) {
-                holder.moreTime.setText("more");
-            }
-            else{
-                holder.date.setText(Float.toString(currJob.getTimeFrame().getDayTimeFrames()[0].getHourFrames()[0].getStartingHour())+"-"+
-                        Float.toString(currJob.getTimeFrame().getDayTimeFrames()[0].getHourFrames()[0].getEndingHour()));
-                holder.moreTime.setText("");
-            }
-
-            if(isMultipleDates(dates)) {
-                String datesToShow=getDates(dates);
-                holder.date.setText(datesToShow);
-                holder.moreDate.setText("more");
-            }
-            else{
-                holder.date.setText(dates[0]);
-                holder.moreDate.setText("");
-            }
+            holder.by.setText(currJob.getTitle()); // need to change to something with the user
             holder.description.setText(currJob.getDescription());
-            holder.payment.setText(currJob.getPayment());
-            holder.img.setText(currJob.get);
+            //holder.payment.setText(Integer.toString(currJob.getPayment().getPrice()));
+            Date[] dates=currJob.getDates();
+           holder.time1.setText(dates[0].toString());
+            if(isMultipleDates(dates)) {
+               holder.time2.setText(dates[1].toString());
+                holder.more.setText(R.string.more);
+            }
+            else{
+                //holder.more.setText(R.string.empty_string);
+            }
+
+
+           // holder.img.setText(currJob.get);
             //holder.title.setTextColor(color);
-            Picasso.with(viewGroup.getContext()).load(currJob.getPicUrl()).into(holder.img)*/
+            //Picasso.with(viewGroup.getContext()).load(currJob.getPicUrl()).into(holder.img)*/
 
             return view;
         }
 
-        /*private String getTimes(TimeFrame timeFrame){
 
-        }*/
-
-       /* private String getDates(String[] dates){
-            StringBuilder datesString=new StringBuilder();
-            datesString.append(dates[0]);
-            datesString.append(", ");
-            datesString.append(dates[1]);
-            datesString.append("...");
-
-            return datesString.toString();
-        }
-
-        private boolean isMultipleDates(String[] dates){
+        private boolean isMultipleDates(Date[] dates){
             if(dates.length>1){
                 return true;
             }
@@ -161,13 +158,5 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
             }
         }
 
-        private boolean isMultipleTimes(TimeFrame timeFrame){
-            if(timeFrame.getDayTimeFrames().length>1){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }*/
     }
 }

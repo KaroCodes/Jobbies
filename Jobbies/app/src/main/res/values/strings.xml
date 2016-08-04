@@ -29,4 +29,7 @@
     <string name="job_paid">Paid job</string>
     <string name="job_voluntary">Voluntary job</string>
 
+    <string name="more">more</string>
+    <string name="empty_string"></string>
+
 </resources>
