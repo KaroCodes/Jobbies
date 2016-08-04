@@ -90,7 +90,7 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
         @Override
         public View getView(int i, View convertView, ViewGroup viewGroup) {
             View view=null;
-            /*ViewHolder holder;
+            ViewHolder holder;
             if(convertView==null){
                 LayoutInflater inflater= LayoutInflater.from(viewGroup.getContext());
                 view=inflater.inflate(R.layout.job_card, null);
@@ -104,9 +104,9 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
             else{
                 view=convertView;
                 holder=(ViewHolder) view.getTag();
-            }*/
+            }
 
-            /*JobDescription currJob=jobs.get(i);
+            JobDescription currJob=jobs.get(i);
             holder.title.setText(currJob.getTitle());
             holder.by.setText(currJob.get);
             holder.time.setText(currJob.getTimeFrame());
@@ -135,7 +135,7 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
             holder.payment.setText(currJob.getPayment());
             holder.img.setText(currJob.get);
             //holder.title.setTextColor(color);
-            Picasso.with(viewGroup.getContext()).load(currJob.getPicUrl()).into(holder.img);*/
+            Picasso.with(viewGroup.getContext()).load(currJob.getPicUrl()).into(holder.img)
 
             return view;
         }
