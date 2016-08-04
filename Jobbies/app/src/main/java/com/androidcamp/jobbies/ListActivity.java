@@ -10,22 +10,17 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ListActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_list);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Intent intent = new Intent(MainActivity.this, AuthenticationActivity.class);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -36,19 +31,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void onFindClickHandler (View v)
-    {
-        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-        startActivity(intent);
-    }
-
-    public void onOfferClickHandler (View v)
-    {
-        Intent intent = new Intent(MainActivity.this, AddNewJobActivity.class);
-        startActivity(intent);
-    }
-
-    //navigation drawer
 
     @Override
     public void onBackPressed() {
@@ -60,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.action_bar_items, menu);
@@ -91,23 +72,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.account_settings) {
             // Handle the camera action
         } else if (id == R.id.my_offers) {
-
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                Toast.makeText(MainActivity.this, user.getUid(),
-                        Toast.LENGTH_SHORT).show();
-                Intent MyOffersActivity = new Intent(MainActivity.this, MyOffers.class);
-                startActivity(MyOffersActivity);
-            }
-            else {
-                Toast.makeText(MainActivity.this, "no user",
-                        Toast.LENGTH_SHORT).show();
-
-                Intent AuthenticationActivity = new Intent(MainActivity.this, AuthenticationActivity.class);
-                startActivity(AuthenticationActivity);
-            }
-
-
+            Intent MyOffersActivity = new Intent(ListActivity.this, MyOffers.class);
+            startActivity(MyOffersActivity);
 
         } else if (id == R.id.applied_for_me) {
 
@@ -117,9 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
 
-
-
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

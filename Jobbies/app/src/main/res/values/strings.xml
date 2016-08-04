@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">Jobbies</string>
 
-
-
     <string name="title_activity_maps">Map</string>
 
     <string name="title_activity_my_offers">MyOffers</string>
@@ -16,6 +14,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_list">List</string>
+    <string name="action_map">Map</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
