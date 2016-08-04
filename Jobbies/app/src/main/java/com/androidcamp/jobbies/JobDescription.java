@@ -2,8 +2,6 @@ package com.androidcamp.jobbies;
 
 import android.location.Address;
 import android.location.Geocoder;
-
-import com.androidcamp.jobbies.timeframe.TimeFrame;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Date;
