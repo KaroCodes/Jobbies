@@ -13,9 +13,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private ArrayList<JobDescription> jobs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +44,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng sydney = new LatLng(-34, 151);
-
         Geocoder gc = new Geocoder(MapsActivity.this);
+
         final JobDescription job = new JobDescription("New job", "some other job", "Tower Bridge, Tower Bridge Road, London", gc);
 
         addMarker(job);
@@ -71,4 +73,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .snippet(job.getShortDescription()));
     }
 
+    public ArrayList<JobDescription> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(ArrayList<JobDescription> jobs) {
+        this.jobs = jobs;
+    }
+
+    //TODO: retrieve from the database
+    public void retreiveJobs()
+    {
+
+    }
+
+    public void displayAllJobs()
+    {
+        Geocoder gc = new Geocoder(MapsActivity.this);
+        for (int i = 0; i < jobs.size(); i++)
+        {
+            jobs.get(i).setGeocoder(gc);
+            final JobDescription job = jobs.get(i);
+            addMarker(job);
+
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    Intent myIntent = new Intent(MapsActivity.this, JobDescriptionActivity.class);
+                    myIntent.putExtra("title", job.getTitle());
+                    myIntent.putExtra("description", job.getDescription());
+                    myIntent.putExtra("address", job.getAddress_str());
+                    MapsActivity.this.startActivity(myIntent);
+                }
+            });
+
+        }
+        //TODO: move the camera to a specific job
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(job.getLatLng()));
+
+    }
 }

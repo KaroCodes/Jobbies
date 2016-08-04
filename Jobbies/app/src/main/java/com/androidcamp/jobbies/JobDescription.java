@@ -115,7 +115,7 @@ public class JobDescription {
     }
 
     public String getShortDescription() {
-        return this.title;
+        return this.title + "\n" + this.getAddress_str();
     }
 
     public List<Address> getAddresses() {

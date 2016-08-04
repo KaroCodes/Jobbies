@@ -13,9 +13,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void onClickHandler (View v)
+    public void onFindClickHandler (View v)
     {
         Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+        startActivity(intent);
+    }
+
+    public void onOfferClickHandler (View v)
+    {
+        Intent intent = new Intent(MainActivity.this, AddNewJobActivity.class);
         startActivity(intent);
     }
 }
