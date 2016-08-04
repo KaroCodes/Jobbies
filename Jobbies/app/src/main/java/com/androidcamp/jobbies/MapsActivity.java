@@ -3,7 +3,6 @@ package com.androidcamp.jobbies;
 import android.content.Intent;
 import android.location.Geocoder;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -146,7 +145,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my_offers, menu);
+        getMenuInflater().inflate(R.menu.action_bar_items, menu);
         return true;
     }
 
