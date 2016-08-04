@@ -40,6 +40,9 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.+'
     compile 'com.android.support:design:24.1.0'
     compile 'com.android.support:multidex:1.0.1'
+
+    compile 'com.android.support:multidex:1.0.1'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

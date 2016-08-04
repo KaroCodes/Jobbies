@@ -3,11 +3,9 @@
 
     <string name="title_activity_maps">Map</string>
 
-
-
-    <string name="title_activity_add_new_job">AddNewJobActivity</string>
     <string name="title_activity_my_offers">MyOffers</string>
 
+    <string name="title_activity_add_new_job">Add new job</string>
 
     <string name="facebook_app_id">1770280953186518</string>
     <string name="title_activity_authentication">AuthenticationActivity</string>
