@@ -1,7 +1,6 @@
 package com.androidcamp.jobbies;
 
 
-import android.icu.util.Currency;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
@@ -70,11 +68,11 @@ public class AddNewJobFragment extends Fragment {
             child.setEnabled(enable);
         }
 
-        if (!jobDescription.isVoluntary()) {
+        if (!jobDescription.getIsVoluntary()) {
             providedAmount = Integer.parseInt(amountEditText.getText().toString());
         }
 
-        jobDescription.setVoluntary(!enable);
+        jobDescription.setIsVoluntary(!enable);
 
         amountEditText.setText(Integer.toString(enable ? providedAmount : 0));
     }

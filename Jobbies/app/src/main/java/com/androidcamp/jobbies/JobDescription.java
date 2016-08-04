@@ -2,9 +2,12 @@ package com.androidcamp.jobbies;
 
 import android.location.Address;
 import android.location.Geocoder;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Karolina Pawlikowska on 8/4/16.
@@ -19,7 +22,7 @@ public class JobDescription {
     private JobCategory category;
     private Date[] dates;
     private boolean isVoluntary;
-
+    private String ownerId;
 
     public String getTitle() {
         return title;
@@ -77,19 +80,48 @@ public class JobDescription {
         this.dates = dates;
     }
 
-    public boolean isVoluntary() {
+    public boolean getIsVoluntary() {
         return isVoluntary;
     }
 
-    public void setVoluntary(boolean voluntary) {
+    public void setIsVoluntary(boolean voluntary) {
         isVoluntary = voluntary;
     }
 
     public LatLng getLatLng() {
+        if (address == null) {
+            return null;
+        }
         return new LatLng(address.getLatitude(), address.getLongitude());
     }
 
     public String getShortDescription() {
+        if (title == null || address == null) {
+            return null;
+        }
         return this.title + "\n" + this.address.getCountryName();
+    }
+
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("title", getTitle());
+        map.put("description", getDescription());
+        map.put("geocoder", getGeocoder());
+        map.put("address", getAddress());
+        map.put("payment", getPayment());
+        map.put("category", getCategory());
+        map.put("dates", getDates());
+        map.put("isVoluntary", getIsVoluntary());
+        map.put("short_description", getShortDescription());
+        return map;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 }
