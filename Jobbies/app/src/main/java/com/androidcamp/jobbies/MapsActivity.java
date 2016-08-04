@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -67,8 +68,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Geocoder gc = new Geocoder(MapsActivity.this);
 
         final JobDescription job = new JobDescription("New job", "some other job", "Tower Bridge, Tower Bridge Road, London", gc);
+        final JobDescription job2 = new JobDescription("Other job", "very cool job", "Tirana, Albania", gc);
 
         addMarker(job);
+        addMarker(job2);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(job.getLatLng()));
 
@@ -146,7 +149,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my_offers, menu);
+        getMenuInflater().inflate(R.menu.list, menu);
         return true;
     }
 
@@ -158,8 +161,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_list) {
+            //Toast.makeText(getApplicationContext(), "HEJ HEJ", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
