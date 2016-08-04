@@ -95,7 +95,8 @@
         android:id="@+id/title_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
+        android:maxLines="1"
+        android:maxLength="140"
         android:textSize="18dp"
         android:hint="@string/job_title" />
 
@@ -104,6 +105,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
+        android:maxLength="400"
         android:textSize="14dp"
         android:hint="@string/job_description" />
 
