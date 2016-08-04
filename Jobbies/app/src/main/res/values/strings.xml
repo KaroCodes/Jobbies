@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Jobbies</string>
 
+
+    <string name="title_activity_maps">Map</string>
+
+
     <string name="title_activity_add_new_job">AddNewJobActivity</string>
     <string name="title_activity_my_offers">MyOffers</string>
 
