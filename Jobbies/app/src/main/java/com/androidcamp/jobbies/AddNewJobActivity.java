@@ -55,7 +55,7 @@ public class AddNewJobActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.add_new_job, menu);
+        getMenuInflater().inflate(R.menu.action_bar_items, menu);
         return true;
     }
 
@@ -80,17 +80,15 @@ public class AddNewJobActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.account_settings) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.my_offers) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.applied_for_me) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.my_applications) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.app_settings) {
 
         }
 
