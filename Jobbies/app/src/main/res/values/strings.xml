@@ -30,5 +30,7 @@
 
     <string name="more">more</string>
     <string name="empty_string"></string>
+    <string name="apply_button">Apply</string>
+    <string name="show_on_map">Show on map</string>
 
 </resources>

@@ -11,6 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -88,8 +92,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.account_settings) {
             // Handle the camera action
         } else if (id == R.id.my_offers) {
-            Intent MyOffersActivity = new Intent(MainActivity.this, MyOffers.class);
-            startActivity(MyOffersActivity);
+
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                Toast.makeText(MainActivity.this, user.getUid(),
+                        Toast.LENGTH_SHORT).show();
+                Intent MyOffersActivity = new Intent(MainActivity.this, MyOffers.class);
+                startActivity(MyOffersActivity);
+            }
+            else {
+                Toast.makeText(MainActivity.this, "no user",
+                        Toast.LENGTH_SHORT).show();
+
+                Intent AuthenticationActivity = new Intent(MainActivity.this, AuthenticationActivity.class);
+                startActivity(AuthenticationActivity);
+            }
+
+
 
         } else if (id == R.id.applied_for_me) {
 
