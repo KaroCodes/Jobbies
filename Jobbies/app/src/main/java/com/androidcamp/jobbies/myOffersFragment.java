@@ -59,7 +59,7 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
 
 
         public myAdapter () {
-            quotes = new ArrayList<>();
+            jobs = new ArrayList<>();
             color= Color.BLACK;
         }
 
@@ -107,6 +107,12 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
             holder.title.setText(currJob.get);
             holder.by.setText(currJob.get);
             holder.time.setText(currJob.get);
+            holder.date.setText(currJob.get);
+            holder.moreTime.setText(currJob.get);
+            holder.moreDate.setText(currJob.get);
+            holder.description.setText(currJob.get);
+            holder.payment.setText(currJob.get);
+            holder.img.setText(currJob.get);
             //holder.title.setTextColor(color);
             Picasso.with(viewGroup.getContext()).load(currJob.getPicUrl()).into(holder.img);
 
