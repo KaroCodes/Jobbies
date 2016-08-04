@@ -87,6 +87,7 @@ public class AddNewJobFragment extends Fragment {
                         calendar.set(Calendar.HOUR, hours);
                         calendar.set(Calendar.MINUTE, minutes);
                         dateTextView.setText(dateFormat.format(calendar.getTime()));
+                        jobDescription.setDate(calendar.getTime());
                     }
                 }, hours, minutes, false);
 
