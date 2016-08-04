@@ -6,4 +6,16 @@ package com.androidcamp.jobbies.timeframe;
 public class HourFrame {
     private float startingHour;
     private float endingHour;
+
+    public float getStartingHour(){
+        return startingHour;
+    }
+
+    public float getEndingHour() {
+        return endingHour;
+    }
 }
+
+
+
+

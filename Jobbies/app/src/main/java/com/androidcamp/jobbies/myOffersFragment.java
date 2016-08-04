@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.androidcamp.jobbies.timeframe.TimeFrame;
+
 import java.util.ArrayList;
 
 /**
@@ -54,7 +56,7 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
     public class myAdapter extends BaseAdapter {
 
 
-        private ArrayList<JobDecription> jobs;
+        private ArrayList<JobDescription> jobs;
         private int color;
 
 
@@ -63,7 +65,7 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
             color= Color.BLACK;
         }
 
-        public void setQuotes(ArrayList<JobDecription> newJobs) {
+        public void setQuotes(ArrayList<JobDescription> newJobs) {
             jobs = newJobs;
             //Log.d("first quote", quotes.get(0).getQuote());
             notifyDataSetChanged();
@@ -103,19 +105,70 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
                 holder=(ViewHolder) view.getTag();
             }
 
-            JobDecription currJob=jobs.get(i);
-            holder.title.setText(currJob.get);
+            JobDescription currJob=jobs.get(i);
+            holder.title.setText(currJob.getTitle());
             holder.by.setText(currJob.get);
-            holder.time.setText(currJob.get);
-            holder.date.setText(currJob.get);
-            holder.moreTime.setText(currJob.get);
-            holder.moreDate.setText(currJob.get);
-            holder.description.setText(currJob.get);
-            holder.payment.setText(currJob.get);
+            holder.time.setText(currJob.getTimeFrame());
+
+            String[] dates=currJob.getTimeFrame().getDates();
+
+            if(isMultipleTimes(currJob.getTimeFrame())) {
+                holder.moreTime.setText("more");
+            }
+            else{
+                holder.date.setText(Float.toString(currJob.getTimeFrame().getDayTimeFrames()[0].getHourFrames()[0].getStartingHour())+"-"+
+                        Float.toString(currJob.getTimeFrame().getDayTimeFrames()[0].getHourFrames()[0].getEndingHour()));
+                holder.moreTime.setText("");
+            }
+
+            if(isMultipleDates(dates)) {
+                String datesToShow=getDates(dates);
+                holder.date.setText(datesToShow);
+                holder.moreDate.setText("more");
+            }
+            else{
+                holder.date.setText(dates[0]);
+                holder.moreDate.setText("");
+            }
+            holder.description.setText(currJob.getDescription());
+            holder.payment.setText(currJob.getPayment());
             holder.img.setText(currJob.get);
             //holder.title.setTextColor(color);
             Picasso.with(viewGroup.getContext()).load(currJob.getPicUrl()).into(holder.img);
 
             return view;
         }
+
+        private String getTimes(TimeFrame timeFrame){
+
+        }
+
+        private String getDates(String[] dates){
+            StringBuilder datesString=new StringBuilder();
+            datesString.append(dates[0]);
+            datesString.append(", ");
+            datesString.append(dates[1]);
+            datesString.append("...");
+
+            return datesString.toString();
+        }
+
+        private boolean isMultipleDates(String[] dates){
+            if(dates.length>1){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        private boolean isMultipleTimes(TimeFrame timeFrame){
+            if(timeFrame.getDayTimeFrames().length>1){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    }
 }
