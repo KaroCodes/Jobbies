@@ -65,17 +65,13 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
             JobDescription firstJob=new JobDescription();
             firstJob.setTitle("first job");
             firstJob.setPayment(new Payment(10, Currency.getInstance("GBP")));
-            Date d1=new Date();
-            Date[] dates1={d1};
-            firstJob.setDates(dates1);
+            firstJob.setDate(new Date());
             jobs.add(firstJob);
 
             JobDescription secondJob=new JobDescription();
             secondJob.setTitle("second job");
             secondJob.setPayment(new Payment(10, Currency.getInstance("GBP")));
-            Date d2=new Date();
-            Date[] dates2={d2};
-            secondJob.setDates(dates2);
+            secondJob.setDate(new Date());
             jobs.add(secondJob);
         }
 
@@ -113,9 +109,8 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
                 holder.by=((TextView) view.findViewById(R.id.by));
                 //holder.description=((TextView) view.findViewById(R.id.description));
                 //holder.payment=((TextView) view.findViewById(R.id.payment));
-                holder.time1=((TextView) view.findViewById(R.id.time1));
-                holder.time1=((TextView) view.findViewById(R.id.time2));
-                holder.more=((TextView)  view.findViewById(R.id.more));
+                holder.date=((TextView) view.findViewById(R.id.date));
+                //holder.more=((TextView)  view.findViewById(R.id.more));
                 Log.d("after more", holder.more + "");
                 holder.img=((ImageView) view.findViewById(R.id.image));
                 view.setTag(holder);
@@ -129,15 +124,14 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
             holder.title.setText(currJob.getTitle());
            // holder.by.setText(currJob.getTitle()); // need to change to something with the user
             //holder.payment.setText(Integer.toString(currJob.getPayment().getPrice()));
-            Date[] dates=currJob.getDates();
-           holder.time1.setText(dates[0].toString());
-            if(isMultipleDates(dates)) {
+           holder.date.setText(currJob.getDate().toString());
+           /* if(isMultipleDates(dates)) {
                holder.time2.setText(dates[1].toString());
                 holder.more.setText(R.string.more);
             }
             else{
                 //holder.more.setText(R.string.empty_string);
-            }
+            }*/
 
 
            // holder.img.setText(currJob.get);

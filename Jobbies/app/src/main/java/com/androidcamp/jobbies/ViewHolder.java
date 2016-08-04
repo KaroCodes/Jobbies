@@ -10,8 +10,7 @@ public class ViewHolder {
 
     public TextView title;
     public TextView by;
-    public TextView time1;
-    public TextView time2;
+    public TextView date;
     public TextView more;
     public TextView description;
     public TextView payment;

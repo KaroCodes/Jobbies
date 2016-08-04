@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onOfferClickHandler (View v)
     {
         Intent intent = new Intent(MainActivity.this, AddNewJobActivity.class);
+
+
         startActivity(intent);
     }
 

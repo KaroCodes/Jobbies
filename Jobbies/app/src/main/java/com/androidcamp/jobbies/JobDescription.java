@@ -23,7 +23,7 @@ public class JobDescription {
     private Address address;
     private Payment payment;
     private JobCategory category;
-    private Date[] dates;
+    private Date date;
     private boolean isVoluntary;
 
     public JobDescription(){
@@ -93,12 +93,12 @@ public class JobDescription {
         this.category = category;
     }
 
-    public Date[] getDates() {
-        return dates;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDates(Date[] dates) {
-        this.dates = dates;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public boolean isVoluntary() {

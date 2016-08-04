@@ -39,21 +39,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/time1"
-            android:text="time1"/>
->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/time2"/>
->
+            android:id="@+id/date"
+            android:text="date"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/more"
-            android:text="more"
-            />
+
     </LinearLayout>
 
     <LinearLayout
