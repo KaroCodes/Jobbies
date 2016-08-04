@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "439735497604",
+    "firebase_url": "https://jobbies-1485d.firebaseio.com",
+    "project_id": "jobbies-1485d",
+    "storage_bucket": "jobbies-1485d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439735497604:android:3778d8375a02a8c3",
+        "android_client_info": {
+          "package_name": "com.androidcamp.jobbies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439735497604-hesejde7gc157a4o2qae85e35ha8hpc2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.androidcamp.jobbies",
+            "certificate_hash": "0C5424C8C62E7773117290B3AF5D5647CCCA2D13"
+          }
+        },
+        {
+          "client_id": "439735497604-h4viamhs5gcrrffkhaej7kh9mm78m1kf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGTCLFWNqMB-ZVqL1MCzk2DTW17VzNI_0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439735497604-h4viamhs5gcrrffkhaej7kh9mm78m1kf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
