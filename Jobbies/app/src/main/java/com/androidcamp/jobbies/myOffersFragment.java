@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.androidcamp.jobbies.timeframe.TimeFrame;
-
 import java.util.ArrayList;
 
 /**
@@ -90,7 +88,7 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
         @Override
         public View getView(int i, View convertView, ViewGroup viewGroup) {
             View view=null;
-            ViewHolder holder;
+           /* ViewHolder holder;
             if(convertView==null){
                 LayoutInflater inflater= LayoutInflater.from(viewGroup.getContext());
                 view=inflater.inflate(R.layout.job_card, null);
@@ -135,7 +133,7 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
             holder.payment.setText(currJob.getPayment());
             holder.img.setText(currJob.get);
             //holder.title.setTextColor(color);
-            Picasso.with(viewGroup.getContext()).load(currJob.getPicUrl()).into(holder.img)
+            Picasso.with(viewGroup.getContext()).load(currJob.getPicUrl()).into(holder.img)*/
 
             return view;
         }
@@ -144,7 +142,7 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
 
         }*/
 
-        private String getDates(String[] dates){
+       /* private String getDates(String[] dates){
             StringBuilder datesString=new StringBuilder();
             datesString.append(dates[0]);
             datesString.append(", ");
@@ -170,6 +168,6 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
             else{
                 return false;
             }
-        }
+        }*/
     }
 }

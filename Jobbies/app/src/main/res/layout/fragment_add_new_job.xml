@@ -3,40 +3,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context="com.androidcamp.jobbies.AddNewJobFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/category_spinner"
+        android:layout_marginBottom="8dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="2"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
-
-        <TextView
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/paymentRadioGroup"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/textView2"
-            android:layout_weight="1" />
+            android:layout_weight="1">
 
-        <EditText
-            android:layout_width="wrap_content"
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/job_paid"
+                android:id="@+id/paidJobRadioButton" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/job_voluntary"
+                android:id="@+id/voluntaryJobRadioButton" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/paymentDetailsView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/title_edit_text"
-            android:layout_weight="1" />
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:layout_gravity="center_vertical">
 
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:layout_weight="1"
+                android:maxLength="5"
+                android:textSize="18dp"
+                android:gravity="center_horizontal"
+                android:id="@+id/amountEditText" />
+
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/currency_spinner" />
+
+        </LinearLayout>
     </LinearLayout>
 
-
+    <EditText
+        android:id="@+id/title_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:textSize="18dp"
+        android:hint="@string/job_title" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/description_edit_text"
-        android:layout_weight="1" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:textSize="14dp"
+        android:hint="@string/job_description" />
+
 </LinearLayout>

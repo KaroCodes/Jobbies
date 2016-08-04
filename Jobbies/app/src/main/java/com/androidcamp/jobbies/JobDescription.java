@@ -2,12 +2,13 @@ package com.androidcamp.jobbies;
 
 import android.location.Address;
 import android.location.Geocoder;
-
-import com.androidcamp.jobbies.timeframe.TimeFrame;
 import com.google.android.gms.maps.model.LatLng;
+
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Date;
+
 
 /**
  * Created by Karolina Pawlikowska on 8/4/16.
@@ -22,8 +23,13 @@ public class JobDescription {
     private Address address;
     private Payment payment;
     private JobCategory category;
-    private TimeFrame timeFrame;
+    private Date[] dates;
     private boolean isVoluntary;
+
+    public JobDescription(){
+
+    }
+
 
     public JobDescription(String title, String description, String address_str, Geocoder geocoder)
     {
@@ -37,6 +43,7 @@ public class JobDescription {
             e.printStackTrace();
         }
     }
+
 
     public String getTitle() {
         return title;
@@ -86,12 +93,12 @@ public class JobDescription {
         this.category = category;
     }
 
-    public TimeFrame getTimeFrame() {
-        return timeFrame;
+    public Date[] getDates() {
+        return dates;
     }
 
-    public void setTimeFrame(TimeFrame timeFrame) {
-        this.timeFrame = timeFrame;
+    public void setDates(Date[] dates) {
+        this.dates = dates;
     }
 
     public boolean isVoluntary() {

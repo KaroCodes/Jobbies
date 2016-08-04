@@ -9,6 +9,12 @@ public class Payment {
 
     private int price;
     private Currency currency;
+    private static final String[] availableCurrencies = {
+            "USD",
+            "EUR",
+            "GBP",
+            "PLN"
+    };
 
     public Payment(int price, Currency currency) {
         this.price = price;
@@ -29,5 +35,9 @@ public class Payment {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    public static String[] getAvailableCurrencies() {
+        return availableCurrencies;
     }
 }
