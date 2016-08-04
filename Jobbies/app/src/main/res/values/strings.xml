@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Jobbies</string>
 
-    <string name="title_activity_add_new_job">AddNewJobActivity</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="title_activity_my_offers">MyOffers</string>
+
+    <string name="title_activity_add_new_job">Add new job</string>
 
     <string name="facebook_app_id">1770280953186518</string>
     <string name="title_activity_authentication">AuthenticationActivity</string>
@@ -10,12 +14,21 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_list">List</string>
+    <string name="action_map">Map</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="job_title">Type job title here&#8230;</string>
+    <string name="job_title">Job title</string>
+
+
     <string name="job_description">Type few words about the job you offer&#8230;</string>
     <string name="job_paid">Paid job</string>
     <string name="job_voluntary">Voluntary job</string>
+
+    <string name="more">more</string>
+    <string name="empty_string"></string>
+
 </resources>

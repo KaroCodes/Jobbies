@@ -38,6 +38,13 @@ public class DatabaseProvider {
             return;
         }
         jobValues.put("ownerId", user.getUid());
+        /*User user = new User();
+        user.setId("myid");
+        user.setName("alina");
+        user.setSurname("dubatovka");
+        DatabaseProvider pr = new DatabaseProvider();
+        pr.addUser(user);
+        jobValues.put("ownerId", user.getId());*/
         Map<String, Object> jobUpdates = new HashMap<>();
 
         String jobKey = offersRef.push().getKey();

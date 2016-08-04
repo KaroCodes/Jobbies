@@ -73,12 +73,12 @@ public class Job {
         description.setCategory(category);
     }
 
-    public Date[] getDates() {
-        return description.getDates();
+    public Date getDate() {
+        return description.getDate();
     }
 
-    public void setDates(Date[] dates) {
-        description.setDates(dates);
+    public void setDate(Date dates) {
+        description.setDate(dates);
     }
 
     public boolean isVoluntary() {
