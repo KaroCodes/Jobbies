@@ -42,35 +42,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         LatLng sydney = new LatLng(-34, 151);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-        /*
-        Marker marker = mMap.addMarker(new MarkerOptions()
-                .position(sydney)
-                .title("Melbourne")
-                .snippet("Population: 4,137,400"));
-                */
 
         Geocoder gc = new Geocoder(MapsActivity.this);
-        JobDescription_test job = new JobDescription_test("New job", "some other job", gc, "Tower Bridge, Tower Bridge Road, London");
+        final JobDescription job = new JobDescription("New job", "some other job", "Tower Bridge, Tower Bridge Road, London", gc);
 
         addMarker(job);
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(job.getLatLng()));
 
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
                 Intent myIntent = new Intent(MapsActivity.this, JobDescriptionActivity.class);
-                myIntent.putExtra("title", marker.getTitle());
-                myIntent.putExtra("", marker.getTitle());
-                myIntent.putExtra("title", marker.getTitle());
-
+                myIntent.putExtra("title", job.getTitle());
+                myIntent.putExtra("description", job.getDescription());
+                myIntent.putExtra("address", job.getAddress_str());
                 MapsActivity.this.startActivity(myIntent);
             }
         });
     }
 
-    public void addMarker(JobDescription_test job)
+    public void addMarker(JobDescription job)
     {
         LatLng jobAddress = job.getLatLng();
         Marker jobMarker = mMap.addMarker(new MarkerOptions()

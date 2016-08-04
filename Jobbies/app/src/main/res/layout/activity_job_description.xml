@@ -17,13 +17,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/title"/>
+        android:id="@+id/text_title"
+        android:layout_below="@id/test_text"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/job_description"
-        android:layout_below="@+id/title"/>
+        android:layout_below="@+id/text_title"/>
 
     <TextView
         android:layout_width="match_parent"

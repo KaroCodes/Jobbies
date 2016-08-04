@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by Karolina Pawlikowska on 8/4/16.
+ * Created by Anisa Llaveshi on 8/4/16.
  */
 public class JobDescription_test {
 

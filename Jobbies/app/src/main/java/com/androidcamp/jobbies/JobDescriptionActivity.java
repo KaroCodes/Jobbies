@@ -13,9 +13,15 @@ public class JobDescriptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_job_description);
 
         Intent intent = getIntent();
-        String value = intent.getStringExtra("key"); //if it's a string you stored.
+        String value = intent.getStringExtra("title"); //if it's a string you stored.
 
-        TextView tv = (TextView) findViewById(R.id.test_text);
+        TextView tv = (TextView) findViewById(R.id.text_title);
         tv.setText(value);
+
+        tv = (TextView) findViewById(R.id.job_description);
+        tv.setText(intent.getStringExtra("description"));
+
+        tv = (TextView) findViewById(R.id.address);
+        tv.setText(intent.getStringExtra("address"));
     }
 }
