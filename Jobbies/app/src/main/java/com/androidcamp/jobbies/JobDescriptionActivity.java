@@ -1,6 +1,7 @@
 package com.androidcamp.jobbies;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
@@ -117,6 +120,25 @@ public class JobDescriptionActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.action_bar_items, menu);
+
+        try {
+            String displayName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+            String emailAddress = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+            Uri pic_url = FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl();
+
+            ImageView personImage = (ImageView) findViewById(R.id.personImage);
+            Picasso.with(getApplicationContext()).load(pic_url).into(personImage);
+
+            TextView personDisplayName = (TextView) findViewById(R.id.personDisplayNameTextView);
+            personDisplayName.setText(displayName);
+
+            TextView personEmailTextView = (TextView) findViewById(R.id.emailTextView);
+            personEmailTextView.setText(emailAddress);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return true;
     }
 

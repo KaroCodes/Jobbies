@@ -1,6 +1,7 @@
 package com.androidcamp.jobbies;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,10 +14,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 public class AddNewJobActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -52,6 +56,25 @@ public class AddNewJobActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.action_bar_items, menu);
+
+        try {
+            String displayName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+            String emailAddress = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+            Uri pic_url = FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl();
+
+            ImageView personImage = (ImageView) findViewById(R.id.personImage);
+            Picasso.with(getApplicationContext()).load(pic_url).into(personImage);
+
+            TextView personDisplayName = (TextView) findViewById(R.id.personDisplayNameTextView);
+            personDisplayName.setText(displayName);
+
+            TextView personEmailTextView = (TextView) findViewById(R.id.emailTextView);
+            personEmailTextView.setText(emailAddress);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return true;
     }
 

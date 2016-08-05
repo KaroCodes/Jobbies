@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -36,6 +39,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -323,6 +327,25 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.action_bar_list, menu);
+
+        try {
+            String displayName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+            String emailAddress = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+            Uri pic_url = FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl();
+
+            ImageView personImage = (ImageView) findViewById(R.id.personImage);
+            Picasso.with(getApplicationContext()).load(pic_url).into(personImage);
+
+            TextView personDisplayName = (TextView) findViewById(R.id.personDisplayNameTextView);
+            personDisplayName.setText(displayName);
+
+            TextView personEmailTextView = (TextView) findViewById(R.id.emailTextView);
+            personEmailTextView.setText(emailAddress);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return true;
     }
 
