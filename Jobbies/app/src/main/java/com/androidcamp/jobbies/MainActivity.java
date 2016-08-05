@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Firebase.getDefaultConfig().setPersistenceEnabled(true);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (user == null) {
+        (if (user == null) {
             Intent intent = new Intent(MainActivity.this, AuthenticationActivity.class);
             startActivity(intent);
         }
@@ -215,7 +216,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.applicants) {
 
         } else if (id == R.id.my_applications) {
-
+            Intent intent = new Intent(MainActivity.this, MyApplications.class);
+            startActivity(intent);
         } else if (id == R.id.app_settings) {
 
         } else if (id == R.id.log_off) {
