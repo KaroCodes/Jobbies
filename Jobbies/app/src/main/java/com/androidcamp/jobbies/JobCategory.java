@@ -8,12 +8,13 @@ import java.util.Arrays;
 public class JobCategory {
 
     private static String[] categories = {
-        "Animals",
-        "Babysitting",
-        "Garden",
-        "HouseWorks",
-        "Fixing",
-        "Shopping"
+            "CHOOSE CATEGORY...",
+            "Animals",
+            "Babysitting",
+            "Garden",
+            "HouseWorks",
+            "Fixing",
+            "Shopping"
     };
 
     public static String[] getCategories() {

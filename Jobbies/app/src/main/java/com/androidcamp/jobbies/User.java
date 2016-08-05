@@ -13,20 +13,12 @@ public class User {
     private String imageURL;
     private String email;
 
-    private User(String id, String name, String surname, String imageURL, String email) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.imageURL = imageURL;
-        this.email = email;
-    }
-
-    public User(String id) {
-        this(id, null, null, null, null);
-    }
-
     public String getName() {
         return name;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -67,7 +59,7 @@ public class User {
         map.put("name", getName());
         map.put("surname", getSurname());
         map.put("email", getEmail());
-        map.put("image_url", getId());
+        map.put("imageUrl", getImageURL());
         return map;
     }
 }

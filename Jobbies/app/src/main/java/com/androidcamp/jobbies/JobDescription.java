@@ -2,12 +2,16 @@ package com.androidcamp.jobbies;
 
 import android.location.Address;
 import android.location.Geocoder;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.android.gms.maps.model.LatLng;
 
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -22,14 +26,14 @@ public class JobDescription {
     private List<Address> addresses;
     private Address address;
     private Payment payment;
-    private JobCategory category;
+    private String category;
     private Date date;
     private boolean isVoluntary;
+    private String ownerId;
 
     public JobDescription(){
 
     }
-
 
     public JobDescription(String title, String description, String address_str, Geocoder geocoder)
     {
@@ -43,7 +47,6 @@ public class JobDescription {
             e.printStackTrace();
         }
     }
-
 
     public String getTitle() {
         return title;
@@ -85,11 +88,11 @@ public class JobDescription {
         this.payment = payment;
     }
 
-    public JobCategory getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(JobCategory category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -101,16 +104,15 @@ public class JobDescription {
         this.date = date;
     }
 
-    public boolean isVoluntary() {
+    public boolean getIsVoluntary() {
         return isVoluntary;
     }
 
-    public void setVoluntary(boolean voluntary) {
+    public void setIsVoluntary(boolean voluntary) {
         isVoluntary = voluntary;
     }
 
     public LatLng getLatLng() {
-
         double longitude = 0;
         double latitude = 0;
         if(addresses.size() > 0) {
@@ -121,6 +123,7 @@ public class JobDescription {
         return new LatLng(latitude, longitude);
     }
 
+    @JsonIgnore
     public String getShortDescription() {
         return this.title + "\n" + this.getAddress_str();
     }
@@ -139,5 +142,27 @@ public class JobDescription {
 
     public void setAddress_str(String address_str) {
         this.address_str = address_str;
+    }
+
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("title", getTitle());
+        map.put("description", getDescription());
+        map.put("geocoder", getGeocoder());
+        map.put("address", getAddress());
+        map.put("payment", getPayment());
+        map.put("category", getCategory());
+        map.put("date", getDate());
+        map.put("isVoluntary", getIsVoluntary());
+        return map;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 }

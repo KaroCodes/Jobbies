@@ -1,9 +1,9 @@
 package com.androidcamp.jobbies;
 
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +19,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Currency;
 import java.util.Date;
 
 /**
@@ -31,11 +30,19 @@ import java.util.Date;
  */
 public class AddNewJobFragment extends Fragment {
 
+    private static final String SUCCESS = "SUCCESS";
     private static final int DEFAULT_PAYMENT = 1;
 
-    private JobDescription jobDescription;
     private int providedAmount;
     private int year, month, day, hours, minutes;
+
+    private Spinner categorySpinner;
+    private Spinner currencySpinner;
+    private RadioGroup paymentOptionsGroup;
+    private EditText amountEditText;
+    private EditText titleEditText;
+    private EditText descriptionEditText;
+    private Date date;
 
 
     public AddNewJobFragment() {}
@@ -45,19 +52,77 @@ public class AddNewJobFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_new_job, container, false);
 
-        jobDescription = new JobDescription();
-
         populateCategorySpinner(v);
         initializePaymentView(v);
         initializeDatePicker(v);
+        setAddJobButtonclickedListener(v);
+
+        titleEditText = (EditText) v.findViewById(R.id.title_edit_text);
+        descriptionEditText = (EditText) v.findViewById(R.id.description_edit_text);
 
         return v;
+    }
+
+    private void setAddJobButtonclickedListener(View v) {
+        FloatingActionButton addJobButton = (FloatingActionButton)
+                v.findViewById(R.id.add_job_button);
+
+        addJobButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String validationResult = null;
+                if ((validationResult = validate()).equals(SUCCESS)) {
+                    DatabaseProvider databaseProvider = new DatabaseProvider();
+                    databaseProvider.addOffer(getJobDescription());
+                    // go to detail view of your offer
+                }
+                else {
+                    Toast.makeText(getContext(), validationResult, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private String validate() {
+
+        if (titleEditText.getText().toString().isEmpty()) {
+            return "a";
+        }
+        if (descriptionEditText.getText().toString().isEmpty()) {
+            return "b";
+        }
+        if (categorySpinner.getSelectedItemPosition() == 0) {
+            return "c";
+        }
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        if (calendar.before(new Date())) {
+            return "d";
+        }
+
+        return SUCCESS;
+    }
+
+    private JobDescription getJobDescription() {
+        JobDescription jobDescription = new JobDescription();
+        jobDescription.setTitle(titleEditText.getText().toString());
+        jobDescription.setDescription(descriptionEditText.getText().toString());
+        jobDescription.setCategory(categorySpinner.getSelectedItem().toString());
+        jobDescription.setDate(date);
+        jobDescription.setIsVoluntary(paymentOptionsGroup.getCheckedRadioButtonId() ==
+                R.id.voluntary_job_radio_button);
+        jobDescription.setPayment(jobDescription.getIsVoluntary() ? null :
+                new Payment(Integer.parseInt(amountEditText.getText().toString()),
+                        Currency.getInstance(currencySpinner.getSelectedItem().toString())));
+
+        return jobDescription;
     }
 
     private void initializeDatePicker(View v) {
 
         final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
+        date = new Date();
+        calendar.setTime(date);
 
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
@@ -87,7 +152,7 @@ public class AddNewJobFragment extends Fragment {
                         calendar.set(Calendar.HOUR, hours);
                         calendar.set(Calendar.MINUTE, minutes);
                         dateTextView.setText(dateFormat.format(calendar.getTime()));
-                        jobDescription.setDate(calendar.getTime());
+                        date = calendar.getTime();
                     }
                 }, hours, minutes, false);
 
@@ -116,12 +181,12 @@ public class AddNewJobFragment extends Fragment {
         populateCurrencySpinner(v);
 
         final LinearLayout paymentView = (LinearLayout) v.findViewById(R.id.payment_details_view);
-        final EditText amountEditText = (EditText) paymentView.findViewById(R.id.amount_edit_text);
+        amountEditText = (EditText) paymentView.findViewById(R.id.amount_edit_text);
         amountEditText.setText(Integer.toString(DEFAULT_PAYMENT));
 
-        RadioGroup radioGroup = (RadioGroup) v.findViewById(R.id.payment_radio_group);
-        radioGroup.check(R.id.paid_job_radio_button);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        paymentOptionsGroup = (RadioGroup) v.findViewById(R.id.payment_radio_group);
+        paymentOptionsGroup.check(R.id.paid_job_radio_button);
+        paymentOptionsGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if (i == R.id.paid_job_radio_button) {
@@ -141,17 +206,15 @@ public class AddNewJobFragment extends Fragment {
             child.setEnabled(enable);
         }
 
-        if (!jobDescription.isVoluntary()) {
+        if (enable) {
             providedAmount = Integer.parseInt(amountEditText.getText().toString());
         }
-
-        jobDescription.setVoluntary(!enable);
 
         amountEditText.setText(Integer.toString(enable ? providedAmount : 0));
     }
 
     private void populateCategorySpinner(View v) {
-        Spinner categorySpinner = (Spinner) v.findViewById(R.id.category_spinner);
+        categorySpinner = (Spinner) v.findViewById(R.id.category_spinner);
 
         ArrayAdapter<String> adapter= new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_item, JobCategory.getCategories());
@@ -160,7 +223,7 @@ public class AddNewJobFragment extends Fragment {
     }
 
     private void populateCurrencySpinner(View v) {
-        Spinner currencySpinner = (Spinner) v.findViewById(R.id.currency_spinner);
+        currencySpinner = (Spinner) v.findViewById(R.id.currency_spinner);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_item, Payment.getAvailableCurrencies());
