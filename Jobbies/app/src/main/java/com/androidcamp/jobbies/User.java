@@ -62,7 +62,7 @@ public class User {
         map.put("id", getId());
         map.put("name", getName());
         map.put("email", getEmail());
-        map.put("imageUrl", getImageURL());
+        map.put("imageURL", getImageURL());
         return map;
     }
 }
