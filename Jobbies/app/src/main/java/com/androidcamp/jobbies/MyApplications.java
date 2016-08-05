@@ -30,7 +30,7 @@ public class MyApplications extends AppCompatActivity {
         myAdapter adapter = new myAdapter();
         mList.setAdapter(adapter);
         final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference applicants = rootRef.child("applications");
+        DatabaseReference applicants = rootRef.child("applicants");
         applicants.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -38,10 +38,10 @@ public class MyApplications extends AppCompatActivity {
                     String applicant_id = (String)d.child("applicant_id").getValue();
                     if(applicant_id.equals(UserIDs.getsInstance().getCurrentUserId())) {
                         String job_id = (String)d.child("job_id").getValue();
-                        if(rootRef.child("offers").child(job_id).child("isDone").toString() == null) {
+                        //if(rootRef.child("offers").child(job_id).child("isDone").toString() == null) {
                             String offerer = (String) d.child("owner_id").getValue();
                             message.add("You applied for the job " + job_id + " offered by " + offerer + ".");
-                        }
+                        //}
                     }
 
                 }

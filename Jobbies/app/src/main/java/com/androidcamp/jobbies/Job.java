@@ -88,14 +88,6 @@ public class Job {
         user.setName(name);
     }
 
-    public String getSurname() {
-        return user.getSurname();
-    }
-
-    public void setSurname(String surname) {
-        user.setSurname(surname);
-    }
-
     public String getImageURL() {
         return user.getImageURL();
     }

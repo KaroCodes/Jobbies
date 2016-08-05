@@ -24,14 +24,20 @@ public class DatabaseProvider {
         rootRef = new Firebase("https://jobbies-1485d.firebaseio.com/");
     }
 
-
     private String getUserId() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        System.out.println(user);
         if (user == null) {
             return null;
         }
         return user.getUid();
+    }
+
+    private User getCurrentUser() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            return null;
+        }
+        return new User(user);
     }
 
     public void addOffer(JobDescription jobDescription) {
@@ -50,7 +56,6 @@ public class DatabaseProvider {
 
     public void setJobDone(String jobId, String workerId) {
         rootRef.child("offers/" + jobId + "/isDone").setValue("true");
-        //rootRef.child("offers/" + jobId + "/workerId").setValue(workerId);
     }
 
     public void addUser(User user) {
@@ -78,17 +83,17 @@ public class DatabaseProvider {
                     if (jobDescription == null) {
                         return;
                     }
-                    /*if (!jobDescription.getIsVoluntary() && jobDescription.getPayment().getPrice() < price) {
+                    /*if (!jobDescription.getIsVoluntary() && (jobDescription.getPayment() == null || jobDescription.getPayment().getPrice() < price)) {
                         return;
-                    }*/
+                    }
                     if (tf != null && jobDescription.getDescription() != null && jobDescription.getDate().before(tf)) {
                         return;
                     }
-                    /*if (category != null && category.equals(jobDescription.getCategory())) {
+                    if (category != null && category.equals(jobDescription.getCategory())) {
                         return;
-                    }
+                    }*/
 
-                    if (jobDescription.getLatLng() == null) {
+                    /*if (jobDescription.getLatLng() == null) {
                         return;
                     }
                     Location jobLocation = new Location(LocationManager.GPS_PROVIDER);
@@ -175,10 +180,10 @@ public class DatabaseProvider {
             public void onCancelled(FirebaseError firebaseError) {
             }
         });
-
     }
 
-    public void getUserOffers(final User user, final GetJobListener callback) {
+    public void getUserOffers(final GetJobListener callback) {
+        final User user = getCurrentUser();
         Query query = rootRef.child("offers").orderByChild("ownerId").equalTo(user.getId());
         query.addValueEventListener(new ValueEventListener() {
             @Override

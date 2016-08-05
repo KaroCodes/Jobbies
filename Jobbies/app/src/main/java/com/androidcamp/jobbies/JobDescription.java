@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.text.SimpleDateFormat;
+import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +20,6 @@ public class JobDescription {
     private String address_str;
     private Payment payment;
     private String category;
-    //Fri Aug 05 04:41:39 GMT+01:00 2016
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd HH:mm:ss")
     private Date date;
     private boolean isVoluntary;
@@ -104,11 +104,11 @@ public class JobDescription {
         map.put("description", getDescription());
         if (!isVoluntary) {
             map.put("payment", getPayment().toString());
+        } else {
+            map.put("payment", new Payment(0, Currency.getInstance("USD")).toString());
         }
         map.put("category", getCategory());
-
         map.put("date", new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(getDate()));
-
         map.put("isVoluntary", getIsVoluntary());
         map.put("address_str", getAddress_str());
         return map;

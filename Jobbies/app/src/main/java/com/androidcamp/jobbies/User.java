@@ -1,5 +1,7 @@
 package com.androidcamp.jobbies;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,9 +11,19 @@ import java.util.Map;
 public class User {
     private String id;
     private String name;
-    private String surname;
     private String imageURL;
     private String email;
+
+    public User() {
+
+    }
+
+    public User(FirebaseUser user) {
+        id = user.getUid();
+        name = user.getDisplayName();
+        imageURL = user.getPhotoUrl().toString();
+        email = user.getEmail();
+    }
 
     public String getName() {
         return name;
@@ -23,14 +35,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     public String getImageURL() {
@@ -57,7 +61,6 @@ public class User {
         Map<String, String> map = new HashMap<>();
         map.put("id", getId());
         map.put("name", getName());
-        map.put("surname", getSurname());
         map.put("email", getEmail());
         map.put("imageUrl", getImageURL());
         return map;

@@ -193,7 +193,6 @@ class myAdapter extends BaseAdapter {
         holder.payment.setText(currJob.getPayment().toString());
         holder.date.setText(currJob.getDate().toString());
 
-
         return view;
     }
 

@@ -115,7 +115,8 @@ public class AuthenticationActivity extends AppCompatActivity
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Log.d("MSG", "onAuthStateChanged:signed_in:" + user.getUid());
-
+                    DatabaseProvider provider = new DatabaseProvider();
+                    provider.addUser(new User(user));
                     //String user_id = user.getUid();
                     //User database_user = new User(user_id);
                     //database_user.setEmail(email);

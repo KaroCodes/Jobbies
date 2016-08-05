@@ -42,7 +42,7 @@ public class JobDescriptionActivity extends AppCompatActivity
         toggle.syncState();
 
 
-        Intent myI = getIntent();
+        final Intent myI = getIntent();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         TextView title = (TextView) findViewById(R.id.job_description_title);
@@ -62,6 +62,16 @@ public class JobDescriptionActivity extends AppCompatActivity
             public void onClick(View view) {
                 Toast.makeText(JobDescriptionActivity.this, "Apply!", Toast.LENGTH_SHORT).show();
                 DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+
+                DatabaseReference applicants = rootRef.child("applicants");
+                DatabaseReference appChild = applicants.push();
+                HashMap<String, Object> appFields = new HashMap<>();
+                appFields.put("job_id", myI.getStringExtra("title"));
+                appFields.put("applicant_id", UserIDs.getsInstance().getCurrentUserId());
+                appFields.put("owner_id", myI.getStringExtra("owner"));
+                EditText et = (EditText) findViewById(R.id.phone_edit_text);
+                appFields.put("phone", et.getText().toString());
+                appChild.updateChildren(appFields);
                 
                 // notifications:user_id -> name, job_title
                 DatabaseReference listRef = rootRef.child("notifications:" + owner);
@@ -70,6 +80,8 @@ public class JobDescriptionActivity extends AppCompatActivity
                 fields.put("name", UserIDs.getsInstance().getCurrentUserName());
                 fields.put("job", job_name);
                 child.updateChildren(fields);
+                Intent gotomainIntent = new Intent(JobDescriptionActivity.this, MyApplications.class);
+                startActivity(gotomainIntent);
             }
         });
     }
@@ -149,7 +161,8 @@ public class JobDescriptionActivity extends AppCompatActivity
             } else if (id == R.id.applicants) {
 
             } else if (id == R.id.my_applications) {
-
+                Intent intent = new Intent(JobDescriptionActivity.this, MyApplications.class);
+                startActivity(intent);
             } else if (id == R.id.app_settings) {
 
             }
