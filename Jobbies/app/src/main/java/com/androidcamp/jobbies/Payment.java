@@ -40,4 +40,9 @@ public class Payment {
     public static String[] getAvailableCurrencies() {
         return availableCurrencies;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(price) + " " + currency.toString();
+    }
 }

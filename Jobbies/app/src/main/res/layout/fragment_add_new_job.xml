@@ -75,19 +75,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="16dp"
             android:textColor="@color/black"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
+            android:layout_marginLeft="8dp"
             android:id="@+id/datetime_text_view" />
 
         <Button
-            android:layout_width="88dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change"
             android:layout_alignParentRight="true"
-            android:id="@+id/datetime_changer_button" />
+            android:id="@+id/datetime_changer_button"
+            android:text="@string/edit"
+            android:drawableRight="@drawable/ic_mode_edit_white_24dp"/>
 
     </RelativeLayout>
 
@@ -95,7 +97,8 @@
         android:id="@+id/title_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
+        android:maxLines="1"
+        android:maxLength="140"
         android:textSize="18dp"
         android:hint="@string/job_title" />
 
@@ -104,7 +107,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
+        android:maxLength="400"
         android:textSize="14dp"
         android:hint="@string/job_description" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_job_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_control_point_white_48dp" />
 
 </LinearLayout>
