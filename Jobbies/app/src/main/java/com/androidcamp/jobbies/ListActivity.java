@@ -82,7 +82,6 @@ public class ListActivity extends AppCompatActivity implements  NavigationView.O
         else if (user == null) {
             Intent AuthenticationActivity = new Intent(ListActivity.this, AuthenticationActivity.class);
             startActivity(AuthenticationActivity);
-
             } else if (id == R.id.offer) {
                 Intent MyOffersActivity = new Intent(ListActivity.this, AddNewJobActivity.class);
                 startActivity(MyOffersActivity);
@@ -91,8 +90,7 @@ public class ListActivity extends AppCompatActivity implements  NavigationView.O
             } else if (id == R.id.my_offers) {
                 Intent MyOffersActivity = new Intent(ListActivity.this, MyOffers.class);
                 startActivity(MyOffersActivity);
-            } else if (id == R.id.applied_for_me) {
-
+        } else if (id == R.id.applicants) {
             } else if (id == R.id.my_applications) {
 
             } else if (id == R.id.app_settings) {

@@ -1,9 +1,9 @@
 package com.androidcamp.jobbies;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -120,10 +120,11 @@ public class AuthenticationActivity extends AppCompatActivity
                     database_user.setId(user_id);
                     database_user.setEmail(email);
                     database_user.setName(name);
+
                     // TODO save user, go to page
                     Intent intent = new Intent(AuthenticationActivity.this, next);
                     startActivity(intent);
-
+                    finish();
                 } else {
                     Log.d("MSG", "onAuthStateChanged:signed_out");
                 }

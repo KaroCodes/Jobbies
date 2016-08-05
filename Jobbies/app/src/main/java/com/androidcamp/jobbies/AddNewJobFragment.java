@@ -42,6 +42,7 @@ public class AddNewJobFragment extends Fragment {
     private RadioGroup paymentOptionsGroup;
     private EditText amountEditText;
     private EditText titleEditText;
+    private EditText locationEditText;
     private EditText descriptionEditText;
     private Date date;
 
@@ -60,6 +61,7 @@ public class AddNewJobFragment extends Fragment {
 
         titleEditText = (EditText) v.findViewById(R.id.title_edit_text);
         descriptionEditText = (EditText) v.findViewById(R.id.description_edit_text);
+        locationEditText = (EditText) v.findViewById(R.id.location_edit_text);
 
         return v;
     }
@@ -98,6 +100,9 @@ public class AddNewJobFragment extends Fragment {
         if (titleEditText.getText().toString().isEmpty()) {
             return getString(R.string.validation_error_title);
         }
+        if (locationEditText.getText().toString().isEmpty()) {
+            return getString(R.string.validation_error_location);
+        }
         if (descriptionEditText.getText().toString().isEmpty()) {
             return getString(R.string.validation_error_description);
         }
@@ -116,6 +121,7 @@ public class AddNewJobFragment extends Fragment {
     private JobDescription getJobDescription() {
         JobDescription jobDescription = new JobDescription();
         jobDescription.setTitle(titleEditText.getText().toString());
+        jobDescription.setAddress_str(locationEditText.getText().toString());
         jobDescription.setDescription(descriptionEditText.getText().toString());
         jobDescription.setCategory(categorySpinner.getSelectedItem().toString());
         jobDescription.setDate(date);

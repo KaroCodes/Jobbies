@@ -80,7 +80,6 @@ public class AddNewJobActivity extends AppCompatActivity
 
             Intent MyOffersActivity = new Intent(AddNewJobActivity.this, ListActivity.class);
             startActivity(MyOffersActivity);
-
         }
         else if (user == null) {
             Intent AuthenticationActivity = new Intent(AddNewJobActivity.this, AuthenticationActivity.class);
@@ -94,7 +93,7 @@ public class AddNewJobActivity extends AppCompatActivity
             } else if (id == R.id.my_offers) {
                 Intent MyOffersActivity = new Intent(AddNewJobActivity.this, MyOffers.class);
                 startActivity(MyOffersActivity);
-            } else if (id == R.id.applied_for_me) {
+            } else if (id == R.id.applicants) {
 
             } else if (id == R.id.my_applications) {
 
