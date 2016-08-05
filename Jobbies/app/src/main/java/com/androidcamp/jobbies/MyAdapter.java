@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -102,7 +103,7 @@ class myAdapter extends BaseAdapter {
 
 
     @Override
-    public View getView(int i, View convertView, ViewGroup viewGroup) {
+    public View getView(final int i, View convertView, ViewGroup viewGroup) {
         Log.d("begining","!!!!!");
         View view=null;
         ViewHolder holder;
@@ -117,6 +118,21 @@ class myAdapter extends BaseAdapter {
             //holder.more=((TextView)  view.findViewById(R.id.more));
             Log.d("after more", holder.more + "");
 
+            holder.delete_button = (Button) view.findViewById(R.id.delete_button);
+            holder.delete_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (view == null)
+                        Log.d("NULLLLLL", "NULLLLLL");
+                    int position = (int) view.getTag();
+                    jobs.remove(getItem(position));
+                    notifyDataSetChanged();
+                    //databaseProvider.delete(getItem(position));
+
+                }
+            });
+
             view.setTag(holder);
         }
         else{
@@ -127,6 +143,7 @@ class myAdapter extends BaseAdapter {
         Job currJob=jobs.get(i);
 
         holder.title.setText(currJob.getTitle());
+        holder.delete_button.setTag(i);
         // holder.by.setText(currJob.getTitle()); // need to change to something with the user
         //holder.payment.setText(Integer.toString(currJob.getPayment().getPrice()));
         //holder.date.setText(currJob.getDate().toString());
@@ -160,6 +177,11 @@ class myAdapter extends BaseAdapter {
 
     public void apply(Job job){
         jobs.add(job);
+    }
+
+    public ArrayList<Job> getJobs()
+    {
+        return jobs;
     }
 
 }
