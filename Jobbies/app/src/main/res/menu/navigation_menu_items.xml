@@ -4,30 +4,32 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/find"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Find" />
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="@string/find_job" />
 
         <item
             android:id="@+id/offer"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Offer" />
+            android:title="@string/offer_job" />
+
+        <item
+            android:id="@+id/my_applications"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="My Applications" />
+
+        <item
+            android:id="@+id/my_offers"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="My job offers" />
+        <item
+            android:id="@+id/applicants"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Applicants" />
 
         <item
             android:id="@+id/account_settings"
             android:icon="@drawable/ic_menu_camera"
             android:title="Account Setting" />
-        <item
-            android:id="@+id/my_offers"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="My offers" />
-        <item
-            android:id="@+id/applied_for_me"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Applied For Me" />
-        <item
-            android:id="@+id/my_applications"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="My Applications" />
 
         <item
             android:id="@+id/app_settings"

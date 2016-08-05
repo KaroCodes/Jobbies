@@ -93,7 +93,7 @@ public class MyOffers extends AppCompatActivity
 
 
 
-        } else if (id == R.id.applied_for_me) {
+        } else if (id == R.id.applicants) {
 
         } else if (id == R.id.my_applications) {
 

@@ -39,6 +39,7 @@
 
     <string name="validation_error_title">Title cannot be empty, fill it before posting your offer.</string>
     <string name="validation_error_description">Description cannot be empty, fill it before posting your offer.</string>
+    <string name="validation_error_location">Location cannot be empty, fill it before posting your offer.</string>
     <string name="validation_error_date">Date has to be in the future, fix it before posting your offer.</string>
     <string name="validation_error_category">You have to choose category before posting your offer.</string>
 

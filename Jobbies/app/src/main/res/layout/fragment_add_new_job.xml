@@ -60,7 +60,6 @@
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:layout_weight="2"
-                    android:textStyle="bold"
                     android:maxLength="5"
                     android:textSize="18dp"
                     android:gravity="center_horizontal"
@@ -107,6 +106,7 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:textSize="18dp"
+            android:textStyle="bold"
             android:hint="@string/job_title" />
 
         <EditText

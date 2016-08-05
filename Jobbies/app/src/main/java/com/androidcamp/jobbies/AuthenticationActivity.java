@@ -1,5 +1,6 @@
 package com.androidcamp.jobbies;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 public class AuthenticationActivity extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
@@ -115,6 +117,7 @@ public class AuthenticationActivity extends AppCompatActivity
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Log.d("MSG", "onAuthStateChanged:signed_in:" + user.getUid());
+<<<<<<< 775d79f9191edb02d3228fd10cde06f5735ff885
                     String user_id = user.getUid();
                     User database_user = new User(user_id);
                     database_user.setEmail(email);
@@ -123,6 +126,11 @@ public class AuthenticationActivity extends AppCompatActivity
                     Intent intent = new Intent(AuthenticationActivity.this, next);
                     startActivity(intent);
 
+=======
+                    finish();
+                    // user_id, name, email, TODO create user ecord
+                    // Goto page
+>>>>>>> Layout changes, authentication fixed, addess provided to JobDescription while creating offer.
                 } else {
                     Log.d("MSG", "onAuthStateChanged:signed_out");
                 }
