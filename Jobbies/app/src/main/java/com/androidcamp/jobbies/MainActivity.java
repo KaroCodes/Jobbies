@@ -57,13 +57,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void onOfferClickHandler (View v)
     {
-        Intent intent = new Intent(MainActivity.this, AddNewJobActivity.class);
-        startActivity(intent);
-        Firebase.setAndroidContext(MainActivity.this);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            Intent AuthenticationActivity = new Intent(MainActivity.this, AuthenticationActivity.class);
+            startActivity(AuthenticationActivity);
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        }
+        else {
+            Intent intent = new Intent(MainActivity.this, AddNewJobActivity.class);
+            startActivity(intent);
+            Firebase.setAndroidContext(MainActivity.this);
+
+            // ATTENTION: This was auto-generated to implement the App Indexing API.
+            // See https://g.co/AppIndexing/AndroidStudio for more information.
+            client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        }
     }
 
     @Override
@@ -145,35 +153,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (id == R.id.find) {
 
-        if (id == R.id.account_settings) {
-            // Handle the camera action
-        } else if (id == R.id.my_offers) {
-
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                Toast.makeText(MainActivity.this, user.getUid(),
-                        Toast.LENGTH_SHORT).show();
-                Intent MyOffersActivity = new Intent(MainActivity.this, MyOffers.class);
-                startActivity(MyOffersActivity);
-            }
-            else {
-                Toast.makeText(MainActivity.this, "no user",
-                        Toast.LENGTH_SHORT).show();
-
-                Intent AuthenticationActivity = new Intent(MainActivity.this, AuthenticationActivity.class);
-                startActivity(AuthenticationActivity);
-            }
-
-
-
-        } else if (id == R.id.applied_for_me) {
-
-        } else if (id == R.id.my_applications) {
-
-        } else if (id == R.id.app_settings) {
+            Intent MyOffersActivity = new Intent(MainActivity.this, ListActivity.class);
+            startActivity(MyOffersActivity);
 
         }
+        else if (user == null) {
+            Intent AuthenticationActivity = new Intent(MainActivity.this, AuthenticationActivity.class);
+            startActivity(AuthenticationActivity);
+        }
+
+            if (id == R.id.find) {
+                Intent MyOffersActivity = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(MyOffersActivity);
+
+            } else if (id == R.id.offer) {
+                Intent MyOffersActivity = new Intent(MainActivity.this, AddNewJobActivity.class);
+                startActivity(MyOffersActivity);
+            } else if (id == R.id.account_settings) {
+                // Handle the camera action
+            } else if (id == R.id.my_offers) {
+                    Intent MyOffersActivity = new Intent(MainActivity.this, MyOffers.class);
+                    startActivity(MyOffersActivity);
+            } else if (id == R.id.applied_for_me) {
+
+            } else if (id == R.id.my_applications) {
+
+            } else if (id == R.id.app_settings) {
+
+            }
 
 
 

@@ -75,31 +75,34 @@ public class AddNewJobActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (id == R.id.find) {
 
-        if (id == R.id.account_settings) {
-            // Handle the camera action
-        } else if (id == R.id.my_offers) {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                Toast.makeText(AddNewJobActivity.this, user.getUid(),
-                        Toast.LENGTH_SHORT).show();
-                Intent MyOffersActivity = new Intent(AddNewJobActivity.this, MyOffers.class);
-                startActivity(MyOffersActivity);
-            }
-            else {
-                Toast.makeText(AddNewJobActivity.this, "no user",
-                        Toast.LENGTH_SHORT).show();
-
-                Intent AuthenticationActivity = new Intent(AddNewJobActivity.this, AuthenticationActivity.class);
-                startActivity(AuthenticationActivity);
-            }
-        } else if (id == R.id.applied_for_me) {
-
-        } else if (id == R.id.my_applications) {
-
-        } else if (id == R.id.app_settings) {
+            Intent MyOffersActivity = new Intent(AddNewJobActivity.this, ListActivity.class);
+            startActivity(MyOffersActivity);
 
         }
+        else if (user == null) {
+            Intent AuthenticationActivity = new Intent(AddNewJobActivity.this, AuthenticationActivity.class);
+            startActivity(AuthenticationActivity);
+        } else if (id == R.id.offer) {
+                //WE ARE ALREADY IN THIS ACTIVITY
+                //Intent MyOffersActivity = new Intent(AddNewJobActivity.this, AddNewJobActivity.class);
+                //startActivity(MyOffersActivity);
+            } else if (id == R.id.account_settings) {
+                // Handle the camera action
+            } else if (id == R.id.my_offers) {
+                Intent MyOffersActivity = new Intent(AddNewJobActivity.this, MyOffers.class);
+                startActivity(MyOffersActivity);
+            } else if (id == R.id.applied_for_me) {
+
+            } else if (id == R.id.my_applications) {
+
+            } else if (id == R.id.app_settings) {
+
+            }
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
