@@ -28,7 +28,7 @@ final String filter="filter";
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.list_view, container, false);
         ListView listview=(ListView) view.findViewById(R.id.list_view);
-        Intent thisIntent=getActivity().getIntent();
+       /* Intent thisIntent=getActivity().getIntent();
          int number=(int) thisIntent.getExtras().get(filter);
         int price=(int) thisIntent.getExtras().get(fromPrice);
 
@@ -41,7 +41,8 @@ final String filter="filter";
 
         else{
             mAdapter = new myAdapter(6,0);
-        }
+        }*/
+        mAdapter = new myAdapter(1,0);
        listview.setAdapter(mAdapter);
         return view;
     }

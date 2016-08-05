@@ -196,14 +196,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (user == null) {
-            Intent AuthenticationActivity = new Intent(MainActivity.this, AuthenticationActivity.class);
-            startActivity(AuthenticationActivity);
+        if (id == R.id.find) {
+            Intent MyOffersActivity = new Intent(MainActivity.this, ListActivity.class);
+            startActivity(MyOffersActivity);
         }
 
-        if (id == R.id.find) {
-            Intent MyOffersActivity = new Intent(MainActivity.this, MapsActivity.class);
-            startActivity(MyOffersActivity);
+        else if (user == null) {
+            Intent AuthenticationActivity = new Intent(MainActivity.this, AuthenticationActivity.class);
+            startActivity(AuthenticationActivity);
+
         } else if (id == R.id.offer) {
             Intent MyOffersActivity = new Intent(MainActivity.this, AddNewJobActivity.class);
             startActivity(MyOffersActivity);

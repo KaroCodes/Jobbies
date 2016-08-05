@@ -20,7 +20,7 @@ public class JobDescription {
     private Payment payment;
     private String category;
     //Fri Aug 05 04:41:39 GMT+01:00 2016
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE MFF dd HH:mm:ss yyyy")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE MMM dd HH:mm:ss yyyy")
     private Date date;
     private boolean isVoluntary;
     private String ownerId;
@@ -106,7 +106,7 @@ public class JobDescription {
             map.put("payment", getPayment().toString());
         }
         map.put("category", getCategory());
-        map.put("date", new SimpleDateFormat("EEE MFF dd HH:mm:ss yyyy").format(getDate()));
+        map.put("date", new SimpleDateFormat("EEE MMM dd HH:mm:ss yyyy").format(getDate()));
         map.put("isVoluntary", getIsVoluntary());
         map.put("address_str", getAddress_str());
         return map;
