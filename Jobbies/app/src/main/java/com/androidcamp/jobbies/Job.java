@@ -65,11 +65,11 @@ public class Job {
         description.setPayment(payment);
     }
 
-    public JobCategory getCategory() {
+    public String getCategory() {
         return description.getCategory();
     }
 
-    public void setCategory(JobCategory category) {
+    public void setCategory(String category) {
         description.setCategory(category);
     }
 

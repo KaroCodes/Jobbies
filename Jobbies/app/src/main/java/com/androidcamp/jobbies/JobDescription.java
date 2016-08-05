@@ -26,7 +26,7 @@ public class JobDescription {
     private List<Address> addresses;
     private Address address;
     private Payment payment;
-    private JobCategory category;
+    private String category;
     private Date date;
     private boolean isVoluntary;
     private String ownerId;
@@ -88,11 +88,11 @@ public class JobDescription {
         this.payment = payment;
     }
 
-    public JobCategory getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(JobCategory category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
