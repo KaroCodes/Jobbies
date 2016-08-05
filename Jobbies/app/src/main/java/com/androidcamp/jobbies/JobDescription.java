@@ -22,7 +22,6 @@ public class JobDescription {
 
     private String title;
     private String description;
-    private Geocoder geocoder;
     private String address_str;
     private Payment payment;
     private String category;
@@ -55,14 +54,6 @@ public class JobDescription {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Geocoder getGeocoder() {
-        return geocoder;
-    }
-
-    public void setGeocoder(Geocoder geocoder) {
-        this.geocoder = geocoder;
     }
 
     public Payment getPayment() {

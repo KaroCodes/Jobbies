@@ -114,11 +114,11 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         }
         mMap.setMyLocationEnabled(true);
 
-        final JobDescription job = new JobDescription("New job", "some other job", "Sidney, Australia");
+        //final JobDescription job = new JobDescription("New job", "some other job", "Sidney, Australia");
 
-        //addMarker(job);
+        final Job job = new Job("New job", "some other job", "London, United Kingdom");
 
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(job.getLatLng()));
+        addMarker(job);
 
         // Create an instance of GoogleAPIClient.
         buildGoogleApiClient();
@@ -128,8 +128,8 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
             public void onInfoWindowClick(Marker marker) {
                 Intent myIntent = new Intent(MapsActivity.this, JobDescriptionActivity.class);
                 myIntent.putExtra("title", job.getTitle());
-                myIntent.putExtra("description", job.getDescription());
-                myIntent.putExtra("address", job.getAddress_str());
+                myIntent.putExtra("description", job.getDescription().getDescription());
+                myIntent.putExtra("address", job.getDescription().getAddress_str());
                 MapsActivity.this.startActivity(myIntent);
             }
         });

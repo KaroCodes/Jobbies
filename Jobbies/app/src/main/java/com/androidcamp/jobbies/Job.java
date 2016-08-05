@@ -21,6 +21,13 @@ public class Job {
         this.user = user;
     }
 
+    public Job(String title, String descr, String address)
+    {
+        user = null;
+        id = null;
+        description = new JobDescription(title, descr, address);
+    }
+
     public String getId() {
         return id;
     }
@@ -45,12 +52,12 @@ public class Job {
         description.setGeocoder(geocoder);
     }
 
-    public Address getAddress() {
-        return description.getAddress();
+    public String getAddress() {
+        return description.getAddress_str();
     }
 
-    public void setAddress(Address address) {
-        description.setAddress(address);
+    public void setAddress(String address) {
+        description.setAddress_str(address);
     }
 
     public Payment getPayment() {
