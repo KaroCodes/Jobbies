@@ -89,10 +89,6 @@ public class MyOffers extends AppCompatActivity
         } else if (id == R.id.account_settings) {
             // Handle the camera action
         } else if (id == R.id.my_offers) {
-           //we are already in this activity
-            // Intent MyOffersActivity = new Intent(MyOffers.this, MyOffers.class);
-           // startActivity(MyOffersActivity);
-        } else if (id == R.id.applied_for_me) {
 
         } else if (id == R.id.my_applications) {
 

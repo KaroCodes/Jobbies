@@ -1,16 +1,27 @@
 package com.androidcamp.jobbies;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.firebase.client.Firebase;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.squareup.picasso.Picasso;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Intent intent = new Intent(MainActivity.this, AuthenticationActivity.class);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -47,6 +58,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         Firebase.setAndroidContext(MainActivity.this);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user == null) {
+            Intent intent = new Intent(MainActivity.this, AuthenticationActivity.class);
+            startActivity(intent);
+        }
+
+        Button topButton = (Button) findViewById(R.id.find_button);
+        Button bottomButton = (Button) findViewById(R.id.offer_button);
+
+        Animation animUp = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_up);
+        Animation animDown = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_down);
+
+        topButton.startAnimation(animDown);
+        bottomButton.startAnimation(animUp);
     }
 
     public void onFindClickHandler (View v)
@@ -130,6 +158,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.action_bar_items, menu);
+
+        try {
+            String displayName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+            String emailAddress = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+            Uri pic_url = FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl();
+
+            ImageView personImage = (ImageView) findViewById(R.id.personImage);
+            Picasso.with(getApplicationContext()).load(pic_url).into(personImage);
+
+            TextView personDisplayName = (TextView) findViewById(R.id.personDisplayNameTextView);
+            personDisplayName.setText(displayName);
+
+            TextView personEmailTextView = (TextView) findViewById(R.id.emailTextView);
+            personEmailTextView.setText(emailAddress);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return true;
     }
 
@@ -168,7 +215,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (id == R.id.find) {
                 Intent MyOffersActivity = new Intent(MainActivity.this, MapsActivity.class);
                 startActivity(MyOffersActivity);
-
             } else if (id == R.id.offer) {
                 Intent MyOffersActivity = new Intent(MainActivity.this, AddNewJobActivity.class);
                 startActivity(MyOffersActivity);
@@ -177,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } else if (id == R.id.my_offers) {
                     Intent MyOffersActivity = new Intent(MainActivity.this, MyOffers.class);
                     startActivity(MyOffersActivity);
-            } else if (id == R.id.applied_for_me) {
+        } else if (id == R.id.applicants) {
 
             } else if (id == R.id.my_applications) {
 

@@ -1,12 +1,12 @@
 package com.androidcamp.jobbies;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -37,11 +37,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 public class AuthenticationActivity extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
-
-    private static final String CLIENT_ID = "439735497604-h4viamhs5gcrrffkhaej7kh9mm78m1kf.apps.googleusercontent.com";
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -49,15 +48,20 @@ public class AuthenticationActivity extends AppCompatActivity
     private int RC_SIGN_IN = 19;
     CallbackManager callbackManager;
     private String name, email;
+    private Class next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        next = (Class)getIntent().getSerializableExtra("next");
+        if (next == null) {
+            next = AddNewJobActivity.class;
+        }
         // Facebook login
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_authentication);
         callbackManager = CallbackManager.Factory.create();
+        mAuth = FirebaseAuth.getInstance();
         final LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList(
                 "email"));
@@ -89,19 +93,15 @@ public class AuthenticationActivity extends AppCompatActivity
                 request.executeAsync();
             }
             @Override
-            public void onCancel() {
-                // App code
-            }
+            public void onCancel() {}
             @Override
-            public void onError(FacebookException exception) {
-                // App code
-            }
+            public void onError(FacebookException exception) {}
         });
 
         //Google login
-        mAuth = FirebaseAuth.getInstance();
+        String client_id = "439735497604-h4viamhs5gcrrffkhaej7kh9mm78m1kf.apps.googleusercontent.com";
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(CLIENT_ID)
+                .requestIdToken(client_id)
                 .requestEmail()
                 .build();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -118,8 +118,13 @@ public class AuthenticationActivity extends AppCompatActivity
                 if (user != null) {
                     Log.d("MSG", "onAuthStateChanged:signed_in:" + user.getUid());
                     String user_id = user.getUid();
-                    // user_id, name, email, TODO create user ecord
-                    // Goto page
+                    //User database_user = new User(user_id);
+                    //database_user.setEmail(email);
+                    //database_user.setName(name);
+                    // TODO save user, go to page
+                    Intent intent = new Intent(AuthenticationActivity.this, next);
+                    startActivity(intent);
+                    finish();
                 } else {
                     Log.d("MSG", "onAuthStateChanged:signed_out");
                 }
@@ -177,11 +182,8 @@ public class AuthenticationActivity extends AppCompatActivity
     }
 
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sign_in_button:
-                signIn();
-                break;
-        }
+        if(v.getId() == R.id.sign_in_button)
+            signIn();
     }
     @Override
 
@@ -190,7 +192,6 @@ public class AuthenticationActivity extends AppCompatActivity
         callbackManager.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            TextView tv = (TextView) findViewById(R.id.tv1);
             if(result.isSuccess()) {
                 GoogleSignInAccount acct = result.getSignInAccount();
                 try {
@@ -203,7 +204,7 @@ public class AuthenticationActivity extends AppCompatActivity
                 firebaseAuthWithGoogle(acct);
             }
             else {
-                tv.setText(":(");
+                Toast.makeText(AuthenticationActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
             }
         }
     }

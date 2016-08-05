@@ -7,8 +7,11 @@
 
     <string name="title_activity_add_new_job">Add new job</string>
 
+    <string name="find_job">FIND JOB</string>
+    <string name="offer_job">OFFER JOB</string>
+
     <string name="facebook_app_id">1770280953186518</string>
-    <string name="title_activity_authentication">AuthenticationActivity</string>
+    <string name="title_activity_authentication">Jobbies</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -36,6 +39,7 @@
 
     <string name="validation_error_title">Title cannot be empty, fill it before posting your offer.</string>
     <string name="validation_error_description">Description cannot be empty, fill it before posting your offer.</string>
+    <string name="validation_error_location">Location cannot be empty, fill it before posting your offer.</string>
     <string name="validation_error_date">Date has to be in the future, fix it before posting your offer.</string>
     <string name="validation_error_category">You have to choose category before posting your offer.</string>
     <string name="action_volunteer">Volunteer</string>
