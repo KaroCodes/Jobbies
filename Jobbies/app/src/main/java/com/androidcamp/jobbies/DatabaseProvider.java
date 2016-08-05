@@ -69,7 +69,7 @@ public class DatabaseProvider {
         void apply(Job job);
     }
 
-    public void getJobs(final GeoLocation location, final int radius, final int price, final Date tf, final JobCategory category,
+    public void getJobs(final GeoLocation location, final int radius, final int price, final Date tf, final String category,
                         final GetJobListener callback) {
         Query query = rootRef.child("offers/");
         query.orderByChild("posting_time").limitToFirst(1000);
@@ -83,7 +83,7 @@ public class DatabaseProvider {
                     if (jobDescription == null) {
                         return;
                     }
-                    /*if (!jobDescription.getIsVoluntary() && (jobDescription.getPayment() == null || jobDescription.getPayment().getPrice() < price)) {
+                    if (jobDescription.getPayment().getPrice() < price) {
                         return;
                     }
                     if (tf != null && jobDescription.getDescription() != null && jobDescription.getDate().before(tf)) {
@@ -91,7 +91,7 @@ public class DatabaseProvider {
                     }
                     if (category != null && category.equals(jobDescription.getCategory())) {
                         return;
-                    }*/
+                    }
 
                     /*if (jobDescription.getLatLng() == null) {
                         return;
@@ -201,5 +201,10 @@ public class DatabaseProvider {
 
             }
         });
+    }
+
+    public void deleteJob(Job job) {
+        Firebase jobRef = rootRef.child("offers/" + job.getId());
+        jobRef.removeValue();
     }
 }
