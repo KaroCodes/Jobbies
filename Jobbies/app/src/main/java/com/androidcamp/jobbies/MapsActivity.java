@@ -24,6 +24,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -52,6 +53,7 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
     private GoogleMap mMap;
     Geocoder gc;
     private LatLng current;
+    private boolean changeLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,8 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        changeLocation = true;
 
         if (mGoogleApiClient == null)
         {
@@ -96,6 +100,7 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -108,25 +113,10 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         }
         mMap.setMyLocationEnabled(true);
 
-        //final JobDescription job = new JobDescription("New job", "some other job", "Sidney, Australia");
-
-        final Job job = new Job("New job", "some other job", "London, United Kingdom");
-
-        addMarker(job);
 
         // Create an instance of GoogleAPIClient.
         buildGoogleApiClient();
 
-        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(Marker marker) {
-                Intent myIntent = new Intent(MapsActivity.this, JobDescriptionActivity.class);
-                myIntent.putExtra("title", job.getTitle());
-                myIntent.putExtra("description", job.getDescription().getDescription());
-                myIntent.putExtra("address", job.getDescription().getAddress_str());
-                MapsActivity.this.startActivity(myIntent);
-            }
-        });
 
         DatabaseProvider databaseProvider = new DatabaseProvider();
         databaseProvider.getJobs(null, 0, 0, null, null, new DatabaseProvider.GetJobListener() {
@@ -466,11 +456,16 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
 
         //zoom to current position:
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(latLng).zoom(14).build();
+        if (changeLocation)
+        {
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(latLng).zoom(10).build();
 
-        mMap.animateCamera(CameraUpdateFactory
-                .newCameraPosition(cameraPosition));
+            mMap.animateCamera(CameraUpdateFactory
+                    .newCameraPosition(cameraPosition));
+        }
+        changeLocation = false;
+
         //If you only need one location, unregister the listener
         //LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
 

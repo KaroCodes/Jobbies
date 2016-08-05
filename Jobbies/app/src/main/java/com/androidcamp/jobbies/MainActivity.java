@@ -17,6 +17,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.google.android.gms.appindexing.AppIndex;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(MainActivity.this, AuthenticationActivity.class);
             startActivity(intent);
         }
+
 
         Button topButton = (Button) findViewById(R.id.find_button);
         Button bottomButton = (Button) findViewById(R.id.offer_button);
