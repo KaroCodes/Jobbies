@@ -42,7 +42,7 @@ final String filter="filter";
         else{
             mAdapter = new myAdapter(6,0);
         }*/
-        mAdapter = new myAdapter(1,0);
+        mAdapter = new myAdapter(1,0,0);
        listview.setAdapter(mAdapter);
         return view;
     }
