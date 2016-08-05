@@ -14,6 +14,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -58,8 +59,16 @@ public class AddNewJobFragment extends Fragment {
         populateCategorySpinner(v);
         initializePaymentView(v);
         initializeDatePicker(v);
+        setAddJobButtonclickedListener(v);
 
         return v;
+    }
+
+    private void setAddJobButtonclickedListener(View v) {
+        FloatingActionButton addJobButton = (FloatingActionButton)
+                v.findViewById(R.id.add_job_button);
+
+        // TODO
     }
 
     private void initializeDatePicker(View v) {

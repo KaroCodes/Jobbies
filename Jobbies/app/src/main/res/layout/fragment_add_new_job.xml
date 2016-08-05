@@ -83,11 +83,12 @@
             android:id="@+id/datetime_text_view" />
 
         <Button
-            android:layout_width="88dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change"
             android:layout_alignParentRight="true"
-            android:id="@+id/datetime_changer_button" />
+            android:id="@+id/datetime_changer_button"
+            android:text="@string/edit"
+            android:drawableRight="@drawable/ic_mode_edit_white_24dp"/>
 
     </RelativeLayout>
 
@@ -108,5 +109,13 @@
         android:maxLength="400"
         android:textSize="14dp"
         android:hint="@string/job_description" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_job_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_control_point_white_48dp" />
 
 </LinearLayout>
