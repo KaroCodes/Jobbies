@@ -32,7 +32,7 @@ class myAdapter extends BaseAdapter {
             databaseProvider.getJobs(null,50, 0, date, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
-                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    Log.d("DATABASE1", "!!!!!! " + (System.currentTimeMillis() - time));
                     jobs.add(job);
                     notifyDataSetChanged();
                 }
@@ -44,7 +44,7 @@ class myAdapter extends BaseAdapter {
 
                 @Override
                 public void apply(Job job) {
-                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    Log.d("DATABASE2", "!!!!!! " + (System.currentTimeMillis() - time));
                     jobs.add(job);
                     notifyDataSetChanged();
                 }
@@ -56,7 +56,7 @@ class myAdapter extends BaseAdapter {
 
                 @Override
                 public void apply(Job job) {
-                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    Log.d("DATABASE3", "!!!!!! " + (System.currentTimeMillis() - time));
                     jobs.add(job);
                     notifyDataSetChanged();
                 }
@@ -68,7 +68,7 @@ class myAdapter extends BaseAdapter {
             databaseProvider.getJobs(null,50, 0, date, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
-                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    Log.d("DATABASE4", "!!!!!! " + (System.currentTimeMillis() - time));
                     jobs.add(job);
                     notifyDataSetChanged();
                 }
@@ -79,7 +79,7 @@ class myAdapter extends BaseAdapter {
             databaseProvider.getJobs(null,50, 0, date, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
-                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    Log.d("DATABASE5", "!!!!!! " + (System.currentTimeMillis() - time));
                     jobs.add(job);
                     notifyDataSetChanged();
                 }
@@ -87,11 +87,11 @@ class myAdapter extends BaseAdapter {
         }
 
         else if (filter==filterByPrice) {
-            databaseProvider.getJobs(null, 0,50, date, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null, 50,0, date, null, new DatabaseProvider.GetJobListener() {
 
                 @Override
                 public void apply(Job job) {
-                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    Log.d("DATABASE6", "!!!!!! " + (System.currentTimeMillis() - time));
                     jobs.add(job);
                     notifyDataSetChanged();
                 }
