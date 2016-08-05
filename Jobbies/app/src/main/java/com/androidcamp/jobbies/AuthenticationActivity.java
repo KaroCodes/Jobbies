@@ -1,5 +1,6 @@
 package com.androidcamp.jobbies;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 public class AuthenticationActivity extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
@@ -120,10 +122,13 @@ public class AuthenticationActivity extends AppCompatActivity
                     database_user.setId(user_id);
                     database_user.setEmail(email);
                     database_user.setName(name);
+                    //User database_user = new User(user_id);
+                    //database_user.setEmail(email);
+                    //database_user.setName(name);
                     // TODO save user, go to page
                     Intent intent = new Intent(AuthenticationActivity.this, next);
                     startActivity(intent);
-
+                    finish();
                 } else {
                     Log.d("MSG", "onAuthStateChanged:signed_out");
                 }

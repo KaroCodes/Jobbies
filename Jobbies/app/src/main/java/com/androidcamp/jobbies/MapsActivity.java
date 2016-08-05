@@ -230,7 +230,6 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
 
             Intent MyOffersActivity = new Intent(MapsActivity.this, ListActivity.class);
             startActivity(MyOffersActivity);
-
         }
         else if (user == null) {
             Intent AuthenticationActivity = new Intent(MapsActivity.this, AuthenticationActivity.class);
@@ -244,7 +243,7 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
             } else if (id == R.id.my_offers) {
                 Intent MyOffersActivity = new Intent(MapsActivity.this, MyOffers.class);
                 startActivity(MyOffersActivity);
-            } else if (id == R.id.applied_for_me) {
+            } else if (id == R.id.applicants) {
 
             } else if (id == R.id.my_applications) {
 
