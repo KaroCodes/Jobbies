@@ -122,15 +122,17 @@ public class ListActivity extends AppCompatActivity implements  NavigationView.O
     @Override
     protected void onResume() {
         super.onResume();
-        FirebaseNotificationHandler.getsInstance(ListActivity.this).
-                registerDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+        if(FirebaseAuth.getInstance().getCurrentUser() != null)
+            FirebaseNotificationHandler.getsInstance(ListActivity.this).
+                    registerDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        FirebaseNotificationHandler.getsInstance(ListActivity.this).
-                unregisterDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+        if(FirebaseAuth.getInstance().getCurrentUser() != null)
+            FirebaseNotificationHandler.getsInstance(ListActivity.this).
+                    unregisterDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
 
     }
 }

@@ -112,15 +112,17 @@ public class AddNewJobActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        FirebaseNotificationHandler.getsInstance(AddNewJobActivity.this).
-                registerDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+        if(FirebaseAuth.getInstance().getCurrentUser() != null)
+            FirebaseNotificationHandler.getsInstance(AddNewJobActivity.this).
+                    registerDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        FirebaseNotificationHandler.getsInstance(AddNewJobActivity.this).
-                unregisterDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+        if(FirebaseAuth.getInstance().getCurrentUser() != null)
+            FirebaseNotificationHandler.getsInstance(AddNewJobActivity.this).
+                    unregisterDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
 
     }
 }

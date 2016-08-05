@@ -474,15 +474,17 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-        FirebaseNotificationHandler.getsInstance(MapsActivity.this).
-                registerDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+        if(FirebaseAuth.getInstance().getCurrentUser() != null)
+            FirebaseNotificationHandler.getsInstance(MapsActivity.this).
+                    registerDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        FirebaseNotificationHandler.getsInstance(MapsActivity.this).
-                unregisterDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+        if(FirebaseAuth.getInstance().getCurrentUser() != null)
+            FirebaseNotificationHandler.getsInstance(MapsActivity.this).
+                    unregisterDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
 
     }
 }
