@@ -7,6 +7,9 @@
 
     <string name="title_activity_add_new_job">Add new job</string>
 
+    <string name="find_job">FIND JOB</string>
+    <string name="offer_job">OFFER JOB</string>
+
     <string name="facebook_app_id">1770280953186518</string>
     <string name="title_activity_authentication">Jobbies</string>
 

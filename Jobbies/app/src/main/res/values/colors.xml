@@ -3,7 +3,11 @@
     <color name="colorPrimary">#1FAB77</color>
     <color name="colorPrimaryDark">#146B4B</color>
     <color name="colorAccent">#FF7E2E</color>
+    <color name="colorAccentDark">#C46123</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
+    <color name="find_job_btn_bg">@color/white</color>
+    <color name="offer_job_btn_bg">@color/colorAccent</color>
 </resources>

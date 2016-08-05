@@ -11,6 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,6 +50,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         Firebase.setAndroidContext(MainActivity.this);
+
+        Button topButton = (Button) findViewById(R.id.find_button);
+        Button bottomButton = (Button) findViewById(R.id.offer_button);
+
+        Animation animUp = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_up);
+        Animation animDown = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_down);
+
+        topButton.startAnimation(animDown);
+        bottomButton.startAnimation(animUp);
     }
 
     public void onFindClickHandler (View v)
