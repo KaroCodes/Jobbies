@@ -1,15 +1,8 @@
 package com.androidcamp.jobbies;
 
-import android.location.Address;
-import android.location.Geocoder;
-import android.util.Log;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.android.gms.maps.model.LatLng;
 
-
-import java.io.IOException;
-import java.util.List;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +18,8 @@ public class JobDescription {
     private String address_str;
     private Payment payment;
     private String category;
+    //Fri Aug 05 04:41:39 GMT+01:00 2016
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="E M d HH:mm:ss z y")
     private Date date;
     private boolean isVoluntary;
     private String ownerId;
@@ -106,9 +101,11 @@ public class JobDescription {
         Map<String, Object> map = new HashMap<>();
         map.put("title", getTitle());
         map.put("description", getDescription());
-        map.put("payment", getPayment());
+        if (!isVoluntary) {
+            map.put("payment", getPayment().toString());
+        }
         map.put("category", getCategory());
-        map.put("date", getDate());
+        map.put("date", getDate().toString());
         map.put("isVoluntary", getIsVoluntary());
             map.put("address_str", getAddress_str());
         return map;

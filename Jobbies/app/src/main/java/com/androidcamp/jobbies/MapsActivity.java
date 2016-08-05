@@ -1,19 +1,15 @@
 package com.androidcamp.jobbies;
 
 import android.content.Intent;
-
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-
 import android.location.Location;
-
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,14 +18,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationListener;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -135,10 +129,9 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         });
 
         DatabaseProvider databaseProvider = new DatabaseProvider();
-        databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+        databaseProvider.getJobs(null, 0, 0, null, null, new DatabaseProvider.GetJobListener() {
             @Override
             public void apply(final Job job) {
-                job.setGeocoder(gc);
                 addMarker(job);
 
                 mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
