@@ -85,10 +85,6 @@ public class Job {
         description.setIsVoluntary(voluntary);
     }
 
-    public LatLng getLatLng() {
-        return description.getLatLng();
-    }
-
     public String getShortDescription() {
         return description.getShortDescription();
     }

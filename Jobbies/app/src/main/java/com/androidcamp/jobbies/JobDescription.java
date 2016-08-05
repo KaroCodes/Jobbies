@@ -24,8 +24,6 @@ public class JobDescription {
     private String description;
     private Geocoder geocoder;
     private String address_str;
-    private List<Address> addresses;
-    private Address address;
     private Payment payment;
     private String category;
     private Date date;
@@ -36,17 +34,11 @@ public class JobDescription {
 
     }
 
-    public JobDescription(String title, String description, String address_str, Geocoder geocoder)
+    public JobDescription(String title, String description, String address_str)
     {
         this.title = title;
         this.description = description;
         this.address_str = address_str;
-        this.geocoder = geocoder;
-        try {
-            addresses = geocoder.getFromLocationName(address_str, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public String getTitle() {
@@ -71,14 +63,6 @@ public class JobDescription {
 
     public void setGeocoder(Geocoder geocoder) {
         this.geocoder = geocoder;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     public Payment getPayment() {
@@ -113,28 +97,9 @@ public class JobDescription {
         isVoluntary = voluntary;
     }
 
-    public LatLng getLatLng() {
-        double longitude = 0;
-        double latitude = 0;
-        if(addresses != null && addresses.size() > 0) {
-            latitude= addresses.get(0).getLatitude();
-            longitude= addresses.get(0).getLongitude();
-        }
-
-        return new LatLng(latitude, longitude);
-    }
-
     @JsonIgnore
     public String getShortDescription() {
         return this.title + "\n" + this.getAddress_str() + "\n" + this.getDescription();
-    }
-
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
     }
 
     public String getAddress_str() {
@@ -150,8 +115,6 @@ public class JobDescription {
         Map<String, Object> map = new HashMap<>();
         map.put("title", getTitle());
         map.put("description", getDescription());
-        map.put("geocoder", getGeocoder());
-        map.put("address", getAddress());
         map.put("payment", getPayment());
         map.put("category", getCategory());
         map.put("date", getDate());

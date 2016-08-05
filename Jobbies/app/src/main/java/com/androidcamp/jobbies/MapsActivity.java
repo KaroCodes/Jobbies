@@ -3,6 +3,7 @@ package com.androidcamp.jobbies;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Geocoder;
 
 import android.location.Location;
@@ -40,6 +41,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class MapsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -107,15 +114,11 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         }
         mMap.setMyLocationEnabled(true);
 
-
-
-
-
-        final JobDescription job = new JobDescription("New job", "some other job", "Sidney, Australia", gc);
+        final JobDescription job = new JobDescription("New job", "some other job", "Sidney, Australia");
 
         //addMarker(job);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(job.getLatLng()));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(job.getLatLng()));
 
         // Create an instance of GoogleAPIClient.
         buildGoogleApiClient();
@@ -165,7 +168,141 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void addMarker(Job job) {
-        LatLng jobAddress = job.getLatLng();
+        String address_str = job.getDescription().getAddress_str();
+        List<Address> addresses = new List<Address>() {
+            @Override
+            public int size() {
+                return 0;
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public boolean contains(Object o) {
+                return false;
+            }
+
+            @NonNull
+            @Override
+            public Iterator<Address> iterator() {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public Object[] toArray() {
+                return new Object[0];
+            }
+
+            @NonNull
+            @Override
+            public <T> T[] toArray(T[] ts) {
+                return null;
+            }
+
+            @Override
+            public boolean add(Address address) {
+                return false;
+            }
+
+            @Override
+            public boolean remove(Object o) {
+                return false;
+            }
+
+            @Override
+            public boolean containsAll(Collection<?> collection) {
+                return false;
+            }
+
+            @Override
+            public boolean addAll(Collection<? extends Address> collection) {
+                return false;
+            }
+
+            @Override
+            public boolean addAll(int i, Collection<? extends Address> collection) {
+                return false;
+            }
+
+            @Override
+            public boolean removeAll(Collection<?> collection) {
+                return false;
+            }
+
+            @Override
+            public boolean retainAll(Collection<?> collection) {
+                return false;
+            }
+
+            @Override
+            public void clear() {
+
+            }
+
+            @Override
+            public Address get(int i) {
+                return null;
+            }
+
+            @Override
+            public Address set(int i, Address address) {
+                return null;
+            }
+
+            @Override
+            public void add(int i, Address address) {
+
+            }
+
+            @Override
+            public Address remove(int i) {
+                return null;
+            }
+
+            @Override
+            public int indexOf(Object o) {
+                return 0;
+            }
+
+            @Override
+            public int lastIndexOf(Object o) {
+                return 0;
+            }
+
+            @Override
+            public ListIterator<Address> listIterator() {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public ListIterator<Address> listIterator(int i) {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public List<Address> subList(int i, int i1) {
+                return null;
+            }
+        };
+        try {
+            addresses = gc.getFromLocationName(address_str, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        double longitude = 0;
+        double latitude = 0;
+        if(addresses.size() > 0) {
+            latitude= addresses.get(0).getLatitude();
+            longitude= addresses.get(0).getLongitude();
+        }
+
+        LatLng jobAddress = new LatLng(latitude, longitude);
         Marker jobMarker = mMap.addMarker(new MarkerOptions()
                 .position(jobAddress)
                 .title(job.getTitle())
