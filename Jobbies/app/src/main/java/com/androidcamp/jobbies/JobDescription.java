@@ -3,6 +3,7 @@ package com.androidcamp.jobbies;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class JobDescription {
     private Payment payment;
     private String category;
     //Fri Aug 05 04:41:39 GMT+01:00 2016
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="E M d HH:mm:ss z y")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE MFF dd HH:mm:ss yyyy")
     private Date date;
     private boolean isVoluntary;
     private String ownerId;
@@ -105,9 +106,9 @@ public class JobDescription {
             map.put("payment", getPayment().toString());
         }
         map.put("category", getCategory());
-        map.put("date", getDate().toString());
+        map.put("date", new SimpleDateFormat("EEE MFF dd HH:mm:ss yyyy").format(getDate()));
         map.put("isVoluntary", getIsVoluntary());
-            map.put("address_str", getAddress_str());
+        map.put("address_str", getAddress_str());
         return map;
     }
 
