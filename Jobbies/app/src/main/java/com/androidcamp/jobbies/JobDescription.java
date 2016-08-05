@@ -19,7 +19,6 @@ public class JobDescription {
     private String address_str;
     private Payment payment;
     private String category;
-    //Fri Aug 05 04:41:39 GMT+01:00 2016
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy.MM.dd HH:mm:ss")
     private Date date;
     private boolean isVoluntary;

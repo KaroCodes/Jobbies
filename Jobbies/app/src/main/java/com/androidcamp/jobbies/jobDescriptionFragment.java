@@ -3,19 +3,11 @@ package com.androidcamp.jobbies;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.Date;
 
 /**
  * Created by demouser on 8/4/16.
@@ -42,5 +34,4 @@ public class jobDescriptionFragment extends Fragment {
         });
         return v;
     }
-
 }
