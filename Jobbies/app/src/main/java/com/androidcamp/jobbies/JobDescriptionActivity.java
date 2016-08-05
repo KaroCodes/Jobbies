@@ -44,23 +44,22 @@ public class JobDescriptionActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-
         final Intent myI = getIntent();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        TextView title = (TextView) findViewById(R.id.job_description_title);
+        TextView title = (TextView) findViewById(R.id.title_edit_text);
         title.setText(myI.getStringExtra("title"));
-        TextView description = (TextView) findViewById(R.id.job_description_description);
+        TextView description = (TextView) findViewById(R.id.description_edit_text);
         description.setText(myI.getStringExtra("description"));
-        TextView time = (TextView) findViewById(R.id.job_description_time);
+        TextView time = (TextView) findViewById(R.id.date_text_view);
         time.setText(myI.getStringExtra("time"));
-        TextView address = (TextView) findViewById(R.id.job_description_adress);
+        TextView address = (TextView) findViewById(R.id.location_edit_text);
         address.setText(myI.getStringExtra("address"));
 
         final String owner = getIntent().getStringExtra("owner");
         final String job_name = getIntent().getStringExtra("title");
 
-        findViewById(R.id.apply_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.apply_for_job_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(JobDescriptionActivity.this, "Apply!", Toast.LENGTH_SHORT).show();

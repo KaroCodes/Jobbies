@@ -10,4 +10,6 @@
 
     <color name="find_job_btn_bg">@color/white</color>
     <color name="offer_job_btn_bg">@color/colorAccent</color>
+
+    <color name="grey_lt">#EEEEEE</color>
 </resources>

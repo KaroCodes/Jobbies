@@ -23,8 +23,8 @@ public class jobDescriptionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_job_description, container, false);
         phoneText=(EditText) v.findViewById(R.id.phone_edit_text);
-        adressView= (TextView) v.findViewById(R.id.job_description_adress);
-        Button findOnMapButton= (Button) v.findViewById(R.id.Show_on_map);
+        adressView= (TextView) v.findViewById(R.id.location_edit_text);
+        Button findOnMapButton= (Button) v.findViewById(R.id.show_on_map);
 
         phoneText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,11 +32,10 @@ public class jobDescriptionFragment extends Fragment {
                 phoneText.setText("");
             }
         });
-
         findOnMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String adress=adressView.getText().toString();
+                String adress = adressView.getText().toString();
                 Intent mapActivity = new Intent(getActivity(), MapsActivity.class);
                 mapActivity.putExtra(adresslabel,adress);
                 startActivity(mapActivity);
