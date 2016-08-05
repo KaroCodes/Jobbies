@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,6 +20,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -175,6 +178,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (id == R.id.account_settings) {
             // Handle the camera action
         } else if (id == R.id.my_offers) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                Toast.makeText(MapsActivity.this, user.getUid(),
+                        Toast.LENGTH_SHORT).show();
+                Intent MyOffersActivity = new Intent(MapsActivity.this, MyOffers.class);
+                startActivity(MyOffersActivity);
+            }
+            else {
+                Toast.makeText(MapsActivity.this, "no user",
+                        Toast.LENGTH_SHORT).show();
+
+                Intent AuthenticationActivity = new Intent(MapsActivity.this, AuthenticationActivity.class);
+                startActivity(AuthenticationActivity);
+            }
 
         } else if (id == R.id.applied_for_me) {
 

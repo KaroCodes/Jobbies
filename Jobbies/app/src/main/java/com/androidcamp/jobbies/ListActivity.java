@@ -10,6 +10,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ListActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
 
@@ -72,8 +76,21 @@ public class ListActivity extends AppCompatActivity implements  NavigationView.O
         if (id == R.id.account_settings) {
             // Handle the camera action
         } else if (id == R.id.my_offers) {
-            Intent MyOffersActivity = new Intent(ListActivity.this, MyOffers.class);
-            startActivity(MyOffersActivity);
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                Toast.makeText(ListActivity.this, user.getUid(),
+                        Toast.LENGTH_SHORT).show();
+                Intent MyOffersActivity = new Intent(ListActivity.this, MyOffers.class);
+                startActivity(MyOffersActivity);
+            }
+            else {
+                Toast.makeText(ListActivity.this, "no user",
+                        Toast.LENGTH_SHORT).show();
+
+                Intent AuthenticationActivity = new Intent(ListActivity.this, AuthenticationActivity.class);
+                startActivity(AuthenticationActivity);
+            }
+
 
         } else if (id == R.id.applied_for_me) {
 

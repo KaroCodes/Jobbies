@@ -17,12 +17,22 @@ import java.util.Date;
  */
 class myAdapter extends BaseAdapter {
 
-    private ArrayList<JobDescription> jobs = new ArrayList<JobDescription>();
+    private final ArrayList<Job> jobs = new ArrayList<Job>();
+    private DatabaseProvider databaseProvider=new DatabaseProvider();
     //debugging
     public myAdapter () {
-        jobs = new ArrayList<>();
+        final long time = System.currentTimeMillis();
+        databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+            @Override
+            public void apply(Job job) {
+                Log.d("DATABASE","!!!!!! " + (System.currentTimeMillis() - time));
+                jobs.add(job);
+                notifyDataSetChanged();
+            }
+        });
 
-        JobDescription firstJob=new JobDescription();
+
+       /* JobDescription firstJob=new JobDescription();
         firstJob.setTitle("first job");
         firstJob.setPayment(new Payment(10, Currency.getInstance("GBP")));
         firstJob.setDate(new Date());
@@ -32,13 +42,11 @@ class myAdapter extends BaseAdapter {
         secondJob.setTitle("second job");
         secondJob.setPayment(new Payment(10, Currency.getInstance("GBP")));
         secondJob.setDate(new Date());
-        jobs.add(secondJob);
+        jobs.add(secondJob);*/
+
+
     }
 
-    public void setQuotes(ArrayList<JobDescription> newJobs) {
-        jobs = newJobs;
-        notifyDataSetChanged();
-    }
 
     @Override
     public int getCount() {
@@ -80,11 +88,12 @@ class myAdapter extends BaseAdapter {
             holder=(ViewHolder) view.getTag();
         }
 
-        JobDescription currJob=jobs.get(i);
+        Job currJob=jobs.get(i);
+
         holder.title.setText(currJob.getTitle());
         // holder.by.setText(currJob.getTitle()); // need to change to something with the user
         //holder.payment.setText(Integer.toString(currJob.getPayment().getPrice()));
-        holder.date.setText(currJob.getDate().toString());
+        //holder.date.setText(currJob.getDate().toString());
            /* if(isMultipleDates(dates)) {
                holder.time2.setText(dates[1].toString());
                 holder.more.setText(R.string.more);
@@ -100,6 +109,10 @@ class myAdapter extends BaseAdapter {
 
         return view;
     }
+
+    public void getJobsListener(ViewHolder holder){
+
+    }
     private boolean isMultipleDates(Date[] dates){
         if(dates.length>1){
             return true;
@@ -107,6 +120,10 @@ class myAdapter extends BaseAdapter {
         else{
             return false;
         }
+    }
+
+    public void apply(Job job){
+        jobs.add(job);
     }
 
 }
