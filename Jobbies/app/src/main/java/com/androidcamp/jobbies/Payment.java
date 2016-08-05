@@ -21,6 +21,10 @@ public class Payment {
         this.currency = currency;
     }
 
+    public Payment(String str) {
+        this(Integer.parseInt(str.split(" ")[0]), Currency.getInstance(str.split(" ")[1]));
+    }
+
     public int getPrice() {
         return price;
     }
@@ -43,6 +47,6 @@ public class Payment {
 
     @Override
     public String toString() {
-        return String.valueOf(price) + " " + currency.toString();
+        return String.valueOf(price) + " " + currency.getCurrencyCode();
     }
 }
