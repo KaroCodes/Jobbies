@@ -1,10 +1,5 @@
 package com.androidcamp.jobbies;
 
-import android.location.Address;
-import android.location.Geocoder;
-
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.Date;
 
 /**
@@ -21,6 +16,13 @@ public class Job {
         this.user = user;
     }
 
+    public Job(String title, String descr, String address)
+    {
+        user = null;
+        id = null;
+        description = new JobDescription(title, descr, address);
+    }
+
     public String getId() {
         return id;
     }
@@ -33,28 +35,8 @@ public class Job {
         description.setTitle(title);
     }
 
-    public String getDescription() {
-        return description.getDescription();
-    }
-
     public void setDescription(String description) {
         this.description.setDescription(description);
-    }
-
-    public Geocoder getGeocoder() {
-        return description.getGeocoder();
-    }
-
-    public void setGeocoder(Geocoder geocoder) {
-        description.setGeocoder(geocoder);
-    }
-
-    public Address getAddress() {
-        return description.getAddress();
-    }
-
-    public void setAddress(Address address) {
-        description.setAddress(address);
     }
 
     public Payment getPayment() {
@@ -89,13 +71,14 @@ public class Job {
         description.setIsVoluntary(voluntary);
     }
 
-    public LatLng getLatLng() {
-        return description.getLatLng();
-    }
-
     public String getShortDescription() {
         return description.getShortDescription();
     }
+
+    public JobDescription getDescription() {
+        return description;
+    }
+
 
     public String getName() {
         return user.getName();

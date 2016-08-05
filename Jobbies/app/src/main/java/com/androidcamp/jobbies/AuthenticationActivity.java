@@ -1,10 +1,9 @@
 package com.androidcamp.jobbies;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -37,7 +36,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
 
 public class AuthenticationActivity extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
@@ -117,7 +115,8 @@ public class AuthenticationActivity extends AppCompatActivity
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Log.d("MSG", "onAuthStateChanged:signed_in:" + user.getUid());
-                    String user_id = user.getUid();
+
+                    //String user_id = user.getUid();
                     //User database_user = new User(user_id);
                     //database_user.setEmail(email);
                     //database_user.setName(name);

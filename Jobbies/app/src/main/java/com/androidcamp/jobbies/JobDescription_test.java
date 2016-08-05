@@ -21,11 +21,10 @@ public class JobDescription_test {
     private List<Address> addresses;
     private String address;
 
-    public JobDescription_test(String title, String description, Geocoder gc, String address)
+    public JobDescription_test(String title, String description, String address)
     {
         this.title = title;
         this.description = description;
-        this.geocoder = gc;
         this.address = address;
     }
 

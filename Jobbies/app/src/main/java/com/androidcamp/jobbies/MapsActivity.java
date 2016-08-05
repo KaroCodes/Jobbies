@@ -1,17 +1,15 @@
 package com.androidcamp.jobbies;
 
 import android.content.Intent;
-
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Geocoder;
-
 import android.location.Location;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,17 +18,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationListener;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -43,10 +36,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class MapsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -56,7 +50,7 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
     LatLng latLng;
 
     private GoogleMap mMap;
-    private ArrayList<JobDescription> jobs;
+    Geocoder gc;
     private LatLng current;
 
     @Override
@@ -85,6 +79,8 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
             buildGoogleApiClient();
         }
 
+        gc = new Geocoder(MapsActivity.this);
+
     }
 
 
@@ -112,13 +108,11 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         }
         mMap.setMyLocationEnabled(true);
 
-        Geocoder gc = new Geocoder(MapsActivity.this);
+        //final JobDescription job = new JobDescription("New job", "some other job", "Sidney, Australia");
 
-        final JobDescription job = new JobDescription("New job", "some other job", "Sidney, Australia", gc);
+        final Job job = new Job("New job", "some other job", "London, United Kingdom");
 
         addMarker(job);
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(job.getLatLng()));
 
         // Create an instance of GoogleAPIClient.
         buildGoogleApiClient();
@@ -128,16 +122,35 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
             public void onInfoWindowClick(Marker marker) {
                 Intent myIntent = new Intent(MapsActivity.this, JobDescriptionActivity.class);
                 myIntent.putExtra("title", job.getTitle());
-                myIntent.putExtra("description", job.getDescription());
-                myIntent.putExtra("address", job.getAddress_str());
+                myIntent.putExtra("description", job.getDescription().getDescription());
+                myIntent.putExtra("address", job.getDescription().getAddress_str());
                 MapsActivity.this.startActivity(myIntent);
+            }
+        });
+
+        DatabaseProvider databaseProvider = new DatabaseProvider();
+        databaseProvider.getJobs(null, 0, 0, null, null, new DatabaseProvider.GetJobListener() {
+            @Override
+            public void apply(final Job job) {
+                addMarker(job);
+
+                mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                    @Override
+                    public void onInfoWindowClick(Marker marker) {
+                        Intent myIntent = new Intent(MapsActivity.this, JobDescriptionActivity.class);
+                        myIntent.putExtra("title", job.getTitle());
+                        myIntent.putExtra("description", job.getShortDescription());
+                        myIntent.putExtra("address", job.getDescription().getAddress_str());
+                        MapsActivity.this.startActivity(myIntent);
+                    }
+                });
+                Log.d("IS CALLED", "APPLY CALLED");
             }
         });
     }
 
     protected synchronized void buildGoogleApiClient() {
         if (mGoogleApiClient == null) {
-            Toast.makeText(this, "buildGoogleApiClient", Toast.LENGTH_SHORT).show();
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
@@ -147,51 +160,161 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void addMarker(JobDescription job) {
-        LatLng jobAddress = job.getLatLng();
+    public void addMarker(Job job) {
+        String address_str = job.getDescription().getAddress_str();
+        List<Address> addresses = new List<Address>() {
+            @Override
+            public int size() {
+                return 0;
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public boolean contains(Object o) {
+                return false;
+            }
+
+            @NonNull
+            @Override
+            public Iterator<Address> iterator() {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public Object[] toArray() {
+                return new Object[0];
+            }
+
+            @NonNull
+            @Override
+            public <T> T[] toArray(T[] ts) {
+                return null;
+            }
+
+            @Override
+            public boolean add(Address address) {
+                return false;
+            }
+
+            @Override
+            public boolean remove(Object o) {
+                return false;
+            }
+
+            @Override
+            public boolean containsAll(Collection<?> collection) {
+                return false;
+            }
+
+            @Override
+            public boolean addAll(Collection<? extends Address> collection) {
+                return false;
+            }
+
+            @Override
+            public boolean addAll(int i, Collection<? extends Address> collection) {
+                return false;
+            }
+
+            @Override
+            public boolean removeAll(Collection<?> collection) {
+                return false;
+            }
+
+            @Override
+            public boolean retainAll(Collection<?> collection) {
+                return false;
+            }
+
+            @Override
+            public void clear() {
+
+            }
+
+            @Override
+            public Address get(int i) {
+                return null;
+            }
+
+            @Override
+            public Address set(int i, Address address) {
+                return null;
+            }
+
+            @Override
+            public void add(int i, Address address) {
+
+            }
+
+            @Override
+            public Address remove(int i) {
+                return null;
+            }
+
+            @Override
+            public int indexOf(Object o) {
+                return 0;
+            }
+
+            @Override
+            public int lastIndexOf(Object o) {
+                return 0;
+            }
+
+            @Override
+            public ListIterator<Address> listIterator() {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public ListIterator<Address> listIterator(int i) {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public List<Address> subList(int i, int i1) {
+                return null;
+            }
+        };
+        try {
+            addresses = gc.getFromLocationName(address_str, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        double longitude = 0;
+        double latitude = 0;
+        if(addresses.size() > 0) {
+            latitude= addresses.get(0).getLatitude();
+            longitude= addresses.get(0).getLongitude();
+        }
+
+        LatLng jobAddress = new LatLng(latitude, longitude);
         Marker jobMarker = mMap.addMarker(new MarkerOptions()
                 .position(jobAddress)
                 .title(job.getTitle())
                 .snippet(job.getShortDescription()));
     }
 
-    public ArrayList<JobDescription> getJobs() {
-        return jobs;
-    }
+    //public ArrayList<Job> getJobs() {
+    //    return jobs;
+    //}
 
-    public void setJobs(ArrayList<JobDescription> jobs) {
+    /*public void setJobs(ArrayList<Job> jobs) {
         this.jobs = jobs;
-    }
+    }*/
 
     //TODO: retrieve from the database
     public void retreiveJobs() {
 
     }
 
-    public void displayAllJobs() {
-        Geocoder gc = new Geocoder(MapsActivity.this);
-        for (int i = 0; i < jobs.size(); i++) {
-            jobs.get(i).setGeocoder(gc);
-            final JobDescription job = jobs.get(i);
-            addMarker(job);
-
-            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                @Override
-                public void onInfoWindowClick(Marker marker) {
-                    Intent myIntent = new Intent(MapsActivity.this, JobDescriptionActivity.class);
-                    myIntent.putExtra("title", job.getTitle());
-                    myIntent.putExtra("description", job.getDescription());
-                    myIntent.putExtra("address", job.getAddress_str());
-                    MapsActivity.this.startActivity(myIntent);
-                }
-            });
-
-        }
-        //TODO: move the camera to a specific job
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(job.getLatLng()));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(current);
-
-    }
 
     @Override
     public void onBackPressed() {
@@ -283,7 +406,6 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        Toast.makeText(this,"onConnected",Toast.LENGTH_SHORT).show();
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         if (mLastLocation != null) {
@@ -304,14 +426,11 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onConnectionSuspended(int i) {
-        Toast.makeText(this,"onConnectionSuspended",Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(this,"onConnectionFailed",Toast.LENGTH_SHORT).show();
-
 
     }
 
@@ -342,8 +461,6 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
 
-        Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
-
         //zoom to current position:
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng).zoom(14).build();
@@ -354,5 +471,6 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         //LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
 
     }
+
 
 }

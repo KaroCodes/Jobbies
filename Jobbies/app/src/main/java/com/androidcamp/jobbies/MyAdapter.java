@@ -5,11 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.Date;
 
 /**
@@ -31,7 +29,7 @@ class myAdapter extends BaseAdapter {
         final long time = System.currentTimeMillis();
         Date date = new Date();
         if(filter==getAllJobs) {
-            databaseProvider.getJobs(null, 0, date, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null,50, 0, date, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
                     Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
@@ -42,7 +40,8 @@ class myAdapter extends BaseAdapter {
         }
 
         else if (filter==getJobsByUser) {
-            databaseProvider.getJobs(null, 0, date, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null, 50,0, date, null, new DatabaseProvider.GetJobListener() {
+
                 @Override
                 public void apply(Job job) {
                     Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
@@ -53,7 +52,8 @@ class myAdapter extends BaseAdapter {
         }
 
         else if (filter==getApplicationsByUser) {
-            databaseProvider.getJobs(null, 0, date, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null,50, 0, date, null, new DatabaseProvider.GetJobListener() {
+
                 @Override
                 public void apply(Job job) {
                     Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
@@ -64,7 +64,8 @@ class myAdapter extends BaseAdapter {
         }
 
         else if (filter==getApplicatsByUser) {
-            databaseProvider.getJobs(null, 0, date, null, new DatabaseProvider.GetJobListener() {
+
+            databaseProvider.getJobs(null,50, 0, date, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
                     Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
@@ -75,7 +76,7 @@ class myAdapter extends BaseAdapter {
         }
 
         else if (filter==getJobsVolunteer) {
-            databaseProvider.getJobs(null, 0, date, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null,50, 0, date, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
                     Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
@@ -86,7 +87,8 @@ class myAdapter extends BaseAdapter {
         }
 
         else if (filter==filterByPrice) {
-            databaseProvider.getJobs(null, 0, date, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null, 0,50, date, null, new DatabaseProvider.GetJobListener() {
+
                 @Override
                 public void apply(Job job) {
                     Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));

@@ -62,8 +62,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/phone_edit_text"
-            android:text="Enter your phone number"
+            android:hint="Enter your phone number"
             android:layout_toLeftOf="@+id/apply_button"
+            android:inputType="phone"
             />
         <Button
             android:layout_width="wrap_content"
