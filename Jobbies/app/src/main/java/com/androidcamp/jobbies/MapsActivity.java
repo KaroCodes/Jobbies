@@ -133,7 +133,8 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
                     public void onInfoWindowClick(Marker marker) {
                         Intent myIntent = new Intent(MapsActivity.this, JobDescriptionActivity.class);
                         myIntent.putExtra("title", job.getTitle());
-                        myIntent.putExtra("description", job.getShortDescription());
+                        myIntent.putExtra("category", job.getCategory().toString());
+                        myIntent.putExtra("description", job.getDescription().getDescription());
                         myIntent.putExtra("address", job.getDescription().getAddress_str());
                         myIntent.putExtra("ID", job.getId());
                         myIntent.putExtra("owner", job.getOwnerId());

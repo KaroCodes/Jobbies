@@ -2,6 +2,7 @@ package com.androidcamp.jobbies;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +24,8 @@ public class jobDescriptionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_job_description, container, false);
         phoneText=(EditText) v.findViewById(R.id.phone_edit_text);
-        adressView= (TextView) v.findViewById(R.id.location_edit_text);
-        Button findOnMapButton= (Button) v.findViewById(R.id.show_on_map);
+        adressView= (TextView) v.findViewById(R.id.loc_text_view);
+        FloatingActionButton findOnMapButton= (FloatingActionButton) v.findViewById(R.id.show_on_map);
 
         phoneText.setOnClickListener(new View.OnClickListener() {
             @Override
