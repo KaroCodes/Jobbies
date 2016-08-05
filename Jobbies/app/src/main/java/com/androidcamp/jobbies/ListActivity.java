@@ -117,4 +117,19 @@ public class ListActivity extends AppCompatActivity implements  NavigationView.O
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseNotificationHandler.getsInstance(ListActivity.this).
+                registerDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseNotificationHandler.getsInstance(ListActivity.this).
+                unregisterDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+
+    }
 }

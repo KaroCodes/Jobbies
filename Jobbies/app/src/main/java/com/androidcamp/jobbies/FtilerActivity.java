@@ -26,4 +26,19 @@ public class FtilerActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseNotificationHandler.getsInstance(FtilerActivity.this).
+                registerDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseNotificationHandler.getsInstance(FtilerActivity.this).
+                unregisterDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+
+    }
+
 }

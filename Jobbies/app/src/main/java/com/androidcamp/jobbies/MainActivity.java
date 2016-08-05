@@ -227,4 +227,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseNotificationHandler.getsInstance(MainActivity.this).
+                registerDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseNotificationHandler.getsInstance(MainActivity.this).
+                unregisterDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+
+    }
 }

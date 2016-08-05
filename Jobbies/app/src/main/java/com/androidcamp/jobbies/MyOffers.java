@@ -100,4 +100,19 @@ public class MyOffers extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseNotificationHandler.getsInstance(MyOffers.this).
+                registerDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseNotificationHandler.getsInstance(MyOffers.this).
+                unregisterDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+
+    }
 }
