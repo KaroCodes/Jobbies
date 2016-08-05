@@ -1,7 +1,5 @@
 package com.androidcamp.jobbies;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.Date;
 
 /**
@@ -18,6 +16,13 @@ public class Job {
         this.user = user;
     }
 
+    public Job(String title, String descr, String address)
+    {
+        user = null;
+        id = null;
+        description = new JobDescription(title, descr, address);
+    }
+
     public String getId() {
         return id;
     }
@@ -28,10 +33,6 @@ public class Job {
 
     public void setTitle(String title) {
         description.setTitle(title);
-    }
-
-    public String getDescription() {
-        return description.getDescription();
     }
 
     public void setDescription(String description) {
@@ -70,13 +71,14 @@ public class Job {
         description.setIsVoluntary(voluntary);
     }
 
-    public LatLng getLatLng() {
-        return description.getLatLng();
-    }
-
     public String getShortDescription() {
         return description.getShortDescription();
     }
+
+    public JobDescription getDescription() {
+        return description;
+    }
+
 
     public String getName() {
         return user.getName();

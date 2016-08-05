@@ -1,9 +1,6 @@
 package com.androidcamp.jobbies;
 
 
-import android.location.Location;
-import android.location.LocationManager;
-
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -81,13 +78,13 @@ public class DatabaseProvider {
                     if (jobDescription == null) {
                         return;
                     }
-                    if (!jobDescription.getIsVoluntary() && jobDescription.getPayment().getPrice() < price) {
+                    /*if (!jobDescription.getIsVoluntary() && jobDescription.getPayment().getPrice() < price) {
+                        return;
+                    }*/
+                    if (tf != null && jobDescription.getDescription() != null && jobDescription.getDate().before(tf)) {
                         return;
                     }
-                    if (jobDescription.getDate().before(tf)) {
-                        return;
-                    }
-                    if (category != null && category.equals(jobDescription.getCategory())) {
+                    /*if (category != null && category.equals(jobDescription.getCategory())) {
                         return;
                     }
 
@@ -106,7 +103,7 @@ public class DatabaseProvider {
                         if (currLocation.distanceTo(jobLocation) > radius) {
                             return;
                         }
-                    }
+                    }*/
                     getUserById(jobDescription.getOwnerId(), new GetUserListener() {
                         @Override
                         public void apply(User user) {

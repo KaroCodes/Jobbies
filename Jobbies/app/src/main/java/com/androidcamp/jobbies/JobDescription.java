@@ -1,16 +1,10 @@
 package com.androidcamp.jobbies;
 
-import android.location.Address;
-import android.location.Geocoder;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.android.gms.maps.model.LatLng;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -21,14 +15,11 @@ public class JobDescription {
 
     private String title;
     private String description;
-    private Geocoder geocoder;
     private String address_str;
-    private List<Address> addresses;
-    private Address address;
     private Payment payment;
     private String category;
     //Fri Aug 05 04:41:39 GMT+01:00 2016
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="E M d HH:mm:ss z Y")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="E M d HH:mm:ss z y")
     private Date date;
     private boolean isVoluntary;
     private String ownerId;
@@ -37,17 +28,11 @@ public class JobDescription {
 
     }
 
-    public JobDescription(String title, String description, String address_str, Geocoder geocoder)
+    public JobDescription(String title, String description, String address_str)
     {
         this.title = title;
         this.description = description;
         this.address_str = address_str;
-        this.geocoder = geocoder;
-        try {
-            addresses = geocoder.getFromLocationName(address_str, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public String getTitle() {
@@ -64,22 +49,6 @@ public class JobDescription {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Geocoder getGeocoder() {
-        return geocoder;
-    }
-
-    public void setGeocoder(Geocoder geocoder) {
-        this.geocoder = geocoder;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     public Payment getPayment() {
@@ -114,31 +83,9 @@ public class JobDescription {
         isVoluntary = voluntary;
     }
 
-    public LatLng getLatLng() {
-        double longitude = 0;
-        double latitude = 0;
-        if (address == null) {
-            return null;
-        }
-        if(addresses.size() > 0) {
-            latitude= addresses.get(0).getLatitude();
-            longitude= addresses.get(0).getLongitude();
-        }
-
-        return new LatLng(latitude, longitude);
-    }
-
     @JsonIgnore
     public String getShortDescription() {
-        return this.title + "\n" + this.getAddress_str();
-    }
-
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
+        return this.title + "\n" + this.getAddress_str() + "\n" + this.getDescription();
     }
 
     public String getAddress_str() {
@@ -154,14 +101,13 @@ public class JobDescription {
         Map<String, Object> map = new HashMap<>();
         map.put("title", getTitle());
         map.put("description", getDescription());
-        map.put("geocoder", getGeocoder());
-        map.put("address", getAddress());
         if (!isVoluntary) {
             map.put("payment", getPayment().toString());
         }
         map.put("category", getCategory());
         map.put("date", getDate().toString());
         map.put("isVoluntary", getIsVoluntary());
+            map.put("address_str", getAddress_str());
         return map;
     }
 

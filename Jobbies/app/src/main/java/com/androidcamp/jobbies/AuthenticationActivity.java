@@ -120,7 +120,6 @@ public class AuthenticationActivity extends AppCompatActivity
                     database_user.setId(user_id);
                     database_user.setEmail(email);
                     database_user.setName(name);
-
                     // TODO save user, go to page
                     Intent intent = new Intent(AuthenticationActivity.this, next);
                     startActivity(intent);

@@ -5,11 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.Date;
 
 /**
@@ -27,7 +25,7 @@ class myAdapter extends BaseAdapter {
     public myAdapter (int filter) {
         final long time = System.currentTimeMillis();
         if(filter==getAllJobs) {
-            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null, 0, 0, null, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
                     Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
@@ -38,7 +36,7 @@ class myAdapter extends BaseAdapter {
         }
 
         else if (filter==getJobsByUser) {
-            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null, 0, 0, null, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
                     Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
@@ -49,7 +47,7 @@ class myAdapter extends BaseAdapter {
         }
 
         else if (filter==getApplicationsByUser) {
-            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null, 0, 0, null, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
                     Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
@@ -60,7 +58,7 @@ class myAdapter extends BaseAdapter {
         }
 
         else if (filter==getApplicatsByUser) {
-            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null, 0, 0, null, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
                     Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));

@@ -9,36 +9,36 @@
 
         <item
             android:id="@+id/offer"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_work_black_24dp"
             android:title="@string/offer_job" />
 
         <item
             android:id="@+id/my_applications"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="My Applications" />
+            android:icon="@drawable/ic_view_list_black_24dp"
+            android:title="My applications" />
 
         <item
             android:id="@+id/my_offers"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_message_black_24dp"
             android:title="My job offers" />
         <item
             android:id="@+id/applicants"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_people_black_24dp"
             android:title="Applicants" />
 
         <item
             android:id="@+id/account_settings"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_account_circle_black_24dp"
             android:title="Account Setting" />
 
         <item
             android:id="@+id/app_settings"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_settings_black_24dp"
             android:title="App Settings" />
 
         <item
             android:id="@+id/log_off"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_reply_black_24dp"
             android:title="Log Off" />
     </group>
 
