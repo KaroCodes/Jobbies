@@ -116,7 +116,8 @@ public class AuthenticationActivity extends AppCompatActivity
                 if (user != null) {
                     Log.d("MSG", "onAuthStateChanged:signed_in:" + user.getUid());
                     String user_id = user.getUid();
-                    User database_user = new User(user_id);
+                    User database_user = new User();
+                    database_user.setId(user_id);
                     database_user.setEmail(email);
                     database_user.setName(name);
                     // TODO save user, go to page
