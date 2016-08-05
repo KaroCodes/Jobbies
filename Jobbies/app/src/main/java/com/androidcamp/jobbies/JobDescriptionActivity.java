@@ -10,10 +10,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 /**
  * Created by demouser on 8/4/16.
@@ -36,6 +43,41 @@ public class JobDescriptionActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        TextView title = (TextView) findViewById(R.id.job_description_title);
+        TextView description = (TextView) findViewById(R.id.job_description_description);
+        TextView time = (TextView) findViewById(R.id.job_description_time);
+        TextView address = (TextView) findViewById(R.id.job_description_adress);
+
+        findViewById(R.id.apply_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(JobDescriptionActivity.this, "Apply!", Toast.LENGTH_SHORT).show();
+                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                
+                // notifications:user_id -> name, job_title
+                DatabaseReference listRef = rootRef.child("notifications:" + UserIDs.getsInstance().getCurrentUserId());
+                DatabaseReference child = listRef.push();
+                HashMap<String, Object> fields = new HashMap<>();
+                fields.put("name", UserIDs.getsInstance().getCurrentUserName());
+                fields.put("job", "job will be here");
+                child.updateChildren(fields);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseNotificationHandler.getsInstance(JobDescriptionActivity.this).
+                registerDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseNotificationHandler.getsInstance(JobDescriptionActivity.this).
+                unregisterDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+
     }
 
     @Override
