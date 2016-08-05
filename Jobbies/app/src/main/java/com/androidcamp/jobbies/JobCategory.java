@@ -9,12 +9,12 @@ public class JobCategory {
 
     private static String[] categories = {
             "CHOOSE CATEGORY...",
-            "Animals",
-            "Babysitting",
-            "Garden",
-            "HouseWorks",
-            "Fixing",
-            "Shopping"
+            "ANIMALS",
+            "BABYSITTING",
+            "GARDEN",
+            "HOUSE WORKS",
+            "FIXING",
+            "SHOPPING"
     };
 
     public static String[] getCategories() {

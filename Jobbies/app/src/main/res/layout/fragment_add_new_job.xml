@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,110 +6,128 @@
     android:padding="16dp"
     tools:context="com.androidcamp.jobbies.AddNewJobFragment">
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/category_spinner"
-        android:layout_marginBottom="8dp"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
 
-        <RadioGroup
-            android:id="@+id/payment_radio_group"
-            android:layout_width="0dp"
+        <Spinner
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/job_paid"
-                android:id="@+id/paid_job_radio_button" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/job_voluntary"
-                android:id="@+id/voluntary_job_radio_button" />
-
-        </RadioGroup>
+            android:id="@+id/category_spinner"
+            android:layout_marginBottom="8dp"/>
 
         <LinearLayout
-            android:id="@+id/payment_details_view"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="1"
             android:weightSum="2"
-            android:layout_gravity="center_vertical">
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
-            <EditText
+            <RadioGroup
+                android:id="@+id/payment_radio_group"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:layout_weight="1"
-                android:maxLength="5"
-                android:textSize="18dp"
-                android:gravity="center_horizontal"
-                android:id="@+id/amount_edit_text" />
+                android:layout_weight="1">
 
-            <Spinner
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/job_paid"
+                    android:id="@+id/paid_job_radio_button" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/job_voluntary"
+                    android:id="@+id/voluntary_job_radio_button" />
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/payment_details_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_weight="1"
-                android:id="@+id/currency_spinner" />
+                android:weightSum="5"
+                android:layout_gravity="center_vertical">
 
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:layout_weight="2"
+                    android:textStyle="bold"
+                    android:maxLength="5"
+                    android:textSize="18dp"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/amount_edit_text" />
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:id="@+id/currency_spinner" />
+
+            </LinearLayout>
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:drawablePadding="8dp"
+                android:layout_marginLeft="4dp"
+                android:drawableLeft="@drawable/ic_schedule_black_24dp"
+                android:id="@+id/datetime_text_view" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:id="@+id/datetime_changer_button"
+                android:text="@string/edit"
+                android:drawableRight="@drawable/ic_mode_edit_white_24dp"/>
+
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/title_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textSize="18dp"
+            android:hint="@string/job_title" />
+
+        <EditText
+            android:id="@+id/location_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textSize="14dp"
+            android:hint="@string/job_location" />
+
+        <EditText
+            android:id="@+id/description_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:maxLength="400"
+            android:textSize="14dp"
+            android:lines="4"
+            android:hint="@string/job_description" />
+
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            android:textColor="@color/black"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="8dp"
-            android:id="@+id/datetime_text_view" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:id="@+id/datetime_changer_button"
-            android:text="@string/edit"
-            android:drawableRight="@drawable/ic_mode_edit_white_24dp"/>
-
-    </RelativeLayout>
-
-    <EditText
-        android:id="@+id/title_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:maxLength="140"
-        android:textSize="18dp"
-        android:hint="@string/job_title" />
-
-    <EditText
-        android:id="@+id/description_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:maxLength="400"
-        android:textSize="14dp"
-        android:hint="@string/job_description" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_job_button"
@@ -117,6 +135,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:src="@drawable/ic_control_point_white_48dp" />
 
-</LinearLayout>
+</RelativeLayout>
