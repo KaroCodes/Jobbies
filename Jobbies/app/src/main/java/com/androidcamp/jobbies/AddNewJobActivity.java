@@ -96,7 +96,8 @@ public class AddNewJobActivity extends AppCompatActivity
             } else if (id == R.id.applicants) {
 
             } else if (id == R.id.my_applications) {
-
+                Intent intent = new Intent(AddNewJobActivity.this, MyApplications.class);
+                startActivity(intent);
             } else if (id == R.id.app_settings) {
 
             }
@@ -106,5 +107,20 @@ public class AddNewJobActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseNotificationHandler.getsInstance(AddNewJobActivity.this).
+                registerDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseNotificationHandler.getsInstance(AddNewJobActivity.this).
+                unregisterDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+
     }
 }

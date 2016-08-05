@@ -22,14 +22,33 @@ class myAdapter extends BaseAdapter {
     final int getJobsByUser=2;
     final int getApplicationsByUser=3;
     final int getApplicatsByUser=4;
+    final int getJobsVolunteer=5;
+    final int filterByPrice=6;
+
+    final int regularCard=0;
+    final int myOffersCard=1;
+
+    private int type_card;   // 0 for regular card, 1 for my offers card
+
     //debugging
-    public myAdapter (int filter) {
+    public myAdapter (int filter, int fromPrice, int cardType) {
         final long time = System.currentTimeMillis();
-        if(filter==getAllJobs) {
-            databaseProvider.getJobs(null, 0, 0, null, null, new DatabaseProvider.GetJobListener() {
+        Date date = new Date();
+        type_card=cardType;
+        databaseProvider.getJobs(null, 50,0, date, null, new DatabaseProvider.GetJobListener() {
+
+            @Override
+            public void apply(Job job) {
+                Log.d("DATABASE6", "!!!!!! " + (System.currentTimeMillis() - time));
+                jobs.add(job);
+                notifyDataSetChanged();
+            }
+        });
+        /*if(filter==getAllJobs) {
+            databaseProvider.getJobs(null,50, 0, date, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
-                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    Log.d("DATABASE1", "!!!!!! " + (System.currentTimeMillis() - time));
                     jobs.add(job);
                     notifyDataSetChanged();
                 }
@@ -37,10 +56,11 @@ class myAdapter extends BaseAdapter {
         }
 
         else if (filter==getJobsByUser) {
-            databaseProvider.getJobs(null, 0, 0, null, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null, 50,0, date, null, new DatabaseProvider.GetJobListener() {
+
                 @Override
                 public void apply(Job job) {
-                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    Log.d("DATABASE2", "!!!!!! " + (System.currentTimeMillis() - time));
                     jobs.add(job);
                     notifyDataSetChanged();
                 }
@@ -48,10 +68,11 @@ class myAdapter extends BaseAdapter {
         }
 
         else if (filter==getApplicationsByUser) {
-            databaseProvider.getJobs(null, 0, 0, null, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null,50, 0, date, null, new DatabaseProvider.GetJobListener() {
+
                 @Override
                 public void apply(Job job) {
-                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    Log.d("DATABASE3", "!!!!!! " + (System.currentTimeMillis() - time));
                     jobs.add(job);
                     notifyDataSetChanged();
                 }
@@ -59,28 +80,39 @@ class myAdapter extends BaseAdapter {
         }
 
         else if (filter==getApplicatsByUser) {
-            databaseProvider.getJobs(null, 0, 0, null, null, new DatabaseProvider.GetJobListener() {
+
+            databaseProvider.getJobs(null,50, 0, date, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
-                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    Log.d("DATABASE4", "!!!!!! " + (System.currentTimeMillis() - time));
                     jobs.add(job);
                     notifyDataSetChanged();
                 }
             });
         }
 
+        else if (filter==getJobsVolunteer) {
+            databaseProvider.getJobs(null,50, 0, date, null, new DatabaseProvider.GetJobListener() {
+                @Override
+                public void apply(Job job) {
+                    Log.d("DATABASE5", "!!!!!! " + (System.currentTimeMillis() - time));
+                    jobs.add(job);
+                    notifyDataSetChanged();
+                }
+            });
+        }
 
-       /* JobDescription firstJob=new JobDescription();
-        firstJob.setTitle("first job");
-        firstJob.setPayment(new Payment(10, Currency.getInstance("GBP")));
-        firstJob.setDate(new Date());
-        jobs.add(firstJob);
+        else if (filter==filterByPrice) {
+            databaseProvider.getJobs(null, 50,0, date, null, new DatabaseProvider.GetJobListener() {
 
-        JobDescription secondJob=new JobDescription();
-        secondJob.setTitle("second job");
-        secondJob.setPayment(new Payment(10, Currency.getInstance("GBP")));
-        secondJob.setDate(new Date());
-        jobs.add(secondJob);*/
+                @Override
+                public void apply(Job job) {
+                    Log.d("DATABASE6", "!!!!!! " + (System.currentTimeMillis() - time));
+                    jobs.add(job);
+                    notifyDataSetChanged();
+                }
+            });
+        }*/
 
 
     }
@@ -108,16 +140,21 @@ class myAdapter extends BaseAdapter {
         View view=null;
         ViewHolder holder;
         if(convertView==null){
-            LayoutInflater inflater= LayoutInflater.from(viewGroup.getContext());
-            view=inflater.inflate(R.layout.job_card, null);
+              LayoutInflater inflater= LayoutInflater.from(viewGroup.getContext());
+            if (regularCard==0){
+                view = inflater.inflate(R.layout.job_card, null);
+            }
+            else if(myOffersCard==1) {
+                view = inflater.inflate(R.layout.job_card_my_offers, null);
+            }
+
+
             holder=new ViewHolder();
             holder.title=((TextView) view.findViewById(R.id.title));
             //holder.description=((TextView) view.findViewById(R.id.description));
-            //holder.payment=((TextView) view.findViewById(R.id.payment));
+            holder.payment=((TextView) view.findViewById(R.id.payment));
             holder.date=((TextView) view.findViewById(R.id.date));
-            //holder.more=((TextView)  view.findViewById(R.id.more));
             Log.d("after more", holder.more + "");
-
             holder.delete_button = (Button) view.findViewById(R.id.delete_button);
             holder.delete_button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -141,7 +178,6 @@ class myAdapter extends BaseAdapter {
         }
 
         Job currJob=jobs.get(i);
-
         holder.title.setText(currJob.getTitle());
         holder.delete_button.setTag(i);
         // holder.by.setText(currJob.getTitle()); // need to change to something with the user
@@ -154,11 +190,9 @@ class myAdapter extends BaseAdapter {
             else{
                 //holder.more.setText(R.string.empty_string);
             }*/
+        holder.payment.setText(currJob.getPayment().toString());
+        holder.date.setText(currJob.getDate().toString());
 
-
-        // holder.img.setText(currJob.get);
-        //holder.title.setTextColor(color);
-        //Picasso.with(viewGroup.getContext()).load(currJob.getPicUrl()).into(holder.img)*/
 
         return view;
     }

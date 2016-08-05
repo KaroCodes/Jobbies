@@ -25,12 +25,12 @@ public class UserIDs {
     }
 
     public String getCurrentUserId() {
-        //return FirebaseAuth.getInstance().getCurrentUser().getUid();
-        return "fake_id";
+        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //return "fake_id";
     }
 
     public String getCurrentUserName() {
-        //return FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-        return "fake_name";
+        return FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        //return "fake_name";
     }
 }

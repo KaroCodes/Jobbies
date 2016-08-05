@@ -49,29 +49,30 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-
         <activity android:name=".JobDescriptionActivity" />
-
         <activity
             android:name=".AuthenticationActivity"
-            android:label="@string/title_activity_authentication"></activity>
-
+            android:label="@string/title_activity_authentication" />
         <activity
             android:name=".AddNewJobActivity"
             android:label="@string/title_activity_add_new_job"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MyOffers"
             android:label="@string/title_activity_my_offers"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".NotificationActivity"></activity>
 
-        <activity android:name=".NotificationActivity">
-        </activity>
-
-        <service android:name=".NotificationService"/>
+        <service android:name=".NotificationService" />
 
         <activity
             android:name=".ListActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FtilerActivity"
+            android:label="@string/title_activity_ftiler"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".MyApplications"></activity>
     </application>
+
 </manifest>
