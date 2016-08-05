@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.firebase.client.Firebase;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -200,42 +201,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (id == R.id.find) {
 
-            Intent MyOffersActivity = new Intent(MainActivity.this, ListActivity.class);
-            startActivity(MyOffersActivity);
-
-        }
-        else if (user == null) {
+        if (user == null) {
             Intent AuthenticationActivity = new Intent(MainActivity.this, AuthenticationActivity.class);
             startActivity(AuthenticationActivity);
         }
 
-            if (id == R.id.find) {
-                Intent MyOffersActivity = new Intent(MainActivity.this, MapsActivity.class);
+        if (id == R.id.find) {
+            Intent MyOffersActivity = new Intent(MainActivity.this, MapsActivity.class);
+            startActivity(MyOffersActivity);
+        } else if (id == R.id.offer) {
+            Intent MyOffersActivity = new Intent(MainActivity.this, AddNewJobActivity.class);
+            startActivity(MyOffersActivity);
+        } else if (id == R.id.account_settings) {
+
+        } else if (id == R.id.my_offers) {
+                Intent MyOffersActivity = new Intent(MainActivity.this, MyOffers.class);
                 startActivity(MyOffersActivity);
-            } else if (id == R.id.offer) {
-                Intent MyOffersActivity = new Intent(MainActivity.this, AddNewJobActivity.class);
-                startActivity(MyOffersActivity);
-            } else if (id == R.id.account_settings) {
-                // Handle the camera action
-            } else if (id == R.id.my_offers) {
-                    Intent MyOffersActivity = new Intent(MainActivity.this, MyOffers.class);
-                    startActivity(MyOffersActivity);
         } else if (id == R.id.applicants) {
 
-            } else if (id == R.id.my_applications) {
+        } else if (id == R.id.my_applications) {
 
-            } else if (id == R.id.app_settings) {
+        } else if (id == R.id.app_settings) {
 
-            }
+        } else if (id == R.id.log_off) {
 
+        }
 
-
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
