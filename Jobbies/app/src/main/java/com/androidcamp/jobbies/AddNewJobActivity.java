@@ -96,7 +96,8 @@ public class AddNewJobActivity extends AppCompatActivity
             } else if (id == R.id.applicants) {
 
             } else if (id == R.id.my_applications) {
-
+                Intent intent = new Intent(AddNewJobActivity.this, MyApplications.class);
+                startActivity(intent);
             } else if (id == R.id.app_settings) {
 
             }
