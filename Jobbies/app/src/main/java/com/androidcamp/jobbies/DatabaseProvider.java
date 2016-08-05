@@ -1,6 +1,9 @@
 package com.androidcamp.jobbies;
 
 
+import android.location.Location;
+import android.location.LocationManager;
+
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -24,25 +27,23 @@ public class DatabaseProvider {
         rootRef = new Firebase("https://jobbies-1485d.firebaseio.com/");
     }
 
+
+    private String getUserId() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        System.out.println(user);
+        if (user == null) {
+            return null;
+        }
+        return user.getUid();
+    }
+
     public void addOffer(JobDescription jobDescription) {
         Firebase offersRef = rootRef.child("offers");
 
         Map<String, Object> jobValues = jobDescription.toMap();
         //jobValues.put("isDone", "false");
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        System.out.println(user);
-        if (user == null) {
-            return;
-        }
-        jobValues.put("ownerId", user.getUid());
-        /*User user = new User();
-        user.setId("myid");
-        user.setName("alina");
-        user.setSurname("dubatovka");
-        DatabaseProvider pr = new DatabaseProvider();
-        pr.addUser(user);
-        jobValues.put("ownerId", user.getId());*/
+        jobValues.put("ownerId", getUserId());
         Map<String, Object> jobUpdates = new HashMap<>();
 
         String jobKey = offersRef.push().getKey();
@@ -52,8 +53,7 @@ public class DatabaseProvider {
 
     public void setJobDone(String jobId, String workerId) {
         rootRef.child("offers/" + jobId + "/isDone").setValue("true");
-        rootRef.child("offers/" + jobId + "/workerId").setValue(workerId);
-        //TODO notify owner
+        //rootRef.child("offers/" + jobId + "/workerId").setValue(workerId);
     }
 
     public void addUser(User user) {
@@ -67,8 +67,8 @@ public class DatabaseProvider {
         void apply(Job job);
     }
 
-    public void getJobs(final GeoLocation location, final int price, final Date tf, final JobCategory category,
-                               final GetJobListener callback) {
+    public void getJobs(final GeoLocation location, final int radius, final int price, final Date tf, final JobCategory category,
+                        final GetJobListener callback) {
         Query query = rootRef.child("offers/");
         query.orderByChild("posting_time").limitToFirst(1000);
         query.addValueEventListener(new ValueEventListener() {
@@ -84,14 +84,14 @@ public class DatabaseProvider {
                     if (!jobDescription.getIsVoluntary() && jobDescription.getPayment().getPrice() < price) {
                         return;
                     }
-                    if (jobDescription.getDate().after(tf)) {
+                    if (jobDescription.getDate().before(tf)) {
                         return;
                     }
                     if (category != null && category.equals(jobDescription.getCategory())) {
                         return;
                     }
 
-                    /*if (jobDescription.getLatLng() == null) {
+                    if (jobDescription.getLatLng() == null) {
                         return;
                     }
                     Location jobLocation = new Location(LocationManager.GPS_PROVIDER);
@@ -103,10 +103,10 @@ public class DatabaseProvider {
                         currLocation.setLatitude(location.latitude);
                         currLocation.setLongitude(location.longitude);
 
-                        if (currLocation.distanceTo(jobLocation) > 1000) {
+                        if (currLocation.distanceTo(jobLocation) > radius) {
                             return;
                         }
-                    }*/
+                    }
                     getUserById(jobDescription.getOwnerId(), new GetUserListener() {
                         @Override
                         public void apply(User user) {
@@ -118,7 +118,6 @@ public class DatabaseProvider {
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-
             }
         });
     }
@@ -177,7 +176,6 @@ public class DatabaseProvider {
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-
             }
         });
 

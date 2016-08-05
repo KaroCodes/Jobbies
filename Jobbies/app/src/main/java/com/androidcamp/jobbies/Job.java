@@ -1,8 +1,5 @@
 package com.androidcamp.jobbies;
 
-import android.location.Address;
-import android.location.Geocoder;
-
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Date;
@@ -39,22 +36,6 @@ public class Job {
 
     public void setDescription(String description) {
         this.description.setDescription(description);
-    }
-
-    public Geocoder getGeocoder() {
-        return description.getGeocoder();
-    }
-
-    public void setGeocoder(Geocoder geocoder) {
-        description.setGeocoder(geocoder);
-    }
-
-    public Address getAddress() {
-        return description.getAddress();
-    }
-
-    public void setAddress(Address address) {
-        description.setAddress(address);
     }
 
     public Payment getPayment() {
