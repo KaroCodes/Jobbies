@@ -1,9 +1,6 @@
 package com.androidcamp.jobbies;
 
 
-import android.annotation.TargetApi;
-import android.os.Build;
-
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -34,6 +31,7 @@ public class DatabaseProvider {
         //jobValues.put("isDone", "false");
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        System.out.println(user);
         if (user == null) {
             return;
         }
@@ -74,19 +72,21 @@ public class DatabaseProvider {
         Query query = rootRef.child("offers/");
         query.orderByChild("posting_time").limitToFirst(1000);
         query.addValueEventListener(new ValueEventListener() {
-            @TargetApi(Build.VERSION_CODES.N)
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for (DataSnapshot child : children) {
                     final String key = child.getKey();
                     final JobDescription jobDescription = child.getValue(JobDescription.class);
-                    /*if (!jobDescription.getIsVoluntary() && jobDescription.getPayment().getPrice() < price) {
+                    if (jobDescription == null) {
                         return;
                     }
-                    if (jobDescription != null && jobDescription.getDates()[0].after(tf)) {
+                    if (!jobDescription.getIsVoluntary() && jobDescription.getPayment().getPrice() < price) {
                         return;
-                    }*/
+                    }
+                    if (jobDescription.getDate().after(tf)) {
+                        return;
+                    }
                     if (category != null && category.equals(jobDescription.getCategory())) {
                         return;
                     }
@@ -107,7 +107,6 @@ public class DatabaseProvider {
                             return;
                         }
                     }*/
-                    System.out.println(jobDescription.getOwnerId());
                     getUserById(jobDescription.getOwnerId(), new GetUserListener() {
                         @Override
                         public void apply(User user) {
@@ -131,11 +130,70 @@ public class DatabaseProvider {
     public void getUserById(String userId, final GetUserListener callback) {
         Query query = rootRef.child("users/" + userId).orderByKey();
         query.addValueEventListener(new ValueEventListener() {
-            @TargetApi(Build.VERSION_CODES.N)
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 callback.apply(user);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+    }
+
+    public void addApplicant(User applicant, Job job, String phone) {
+        Firebase appRef = rootRef.child("applicants");
+
+        Map<String, Object> appValues = new HashMap<>();
+        appValues.put("jobId", job.getId());
+        appValues.put("ownerId", job.getOwnerId());
+        appValues.put("applicantId", applicant.getId());
+        appValues.put("phone", phone);
+
+        String appKey = appRef.push().getKey();
+        Map<String, Object> appUpdates = new HashMap<>();
+        appUpdates.put(appKey, appValues);
+        appRef.updateChildren(appUpdates);
+    }
+
+    public interface GetApplicantListener {
+        void apply(Applicant applicant);
+    }
+
+    public void getApplicants(User owner, final GetApplicantListener callback) {
+        Query query = rootRef.child("applicants").orderByChild("ownerId").equalTo(owner.getId());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                for (DataSnapshot child : children) {
+                    final String key = child.getKey();
+                    final Applicant applicant = child.getValue(Applicant.class);
+                    callback.apply(applicant);
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+    }
+
+    public void getUserOffers(final User user, final GetJobListener callback) {
+        Query query = rootRef.child("offers").orderByChild("ownerId").equalTo(user.getId());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                for (DataSnapshot child : children) {
+                    final String key = child.getKey();
+                    final JobDescription jobDescription = child.getValue(JobDescription.class);
+                    callback.apply(new Job(key, jobDescription, user));
+                }
             }
 
             @Override
