@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Firebase.getDefaultConfig().setPersistenceEnabled(true);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        (if (user == null) {
+        if (user == null) {
             Intent intent = new Intent(MainActivity.this, AuthenticationActivity.class);
             startActivity(intent);
         }
