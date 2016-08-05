@@ -1,70 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="10">
 
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/left_layout"
-        android:orientation="vertical"
-        android:padding="10px">
 
-        <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:id="@+id/image" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/by"
-            android:text="user name"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/middle_layout"
-        android:orientation="vertical"
-        android:padding="10px">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/title"
             android:text="title"/>
->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/date"
-            android:text="date"/>
-
-
-    </LinearLayout>
+        >
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/right_layout"
-        android:orientation="vertical"
-        android:padding="10px">
+        android:id="@+id/middle_layout"
+        android:orientation="horizontal"
+        android:padding="10px"
+        android:weightSum="3">
+
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/date"
+            android:text="date"
+            android:layout_weight="2"
+            android:padding="10px"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:id="@+id/payment"
             android:text="payment"
+            android:layout_weight="1"
+            android:padding="10px"
             />
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/description"
-            android:text="Description >"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttons_layout"
+        android:orientation="horizontal"
+        android:padding="10px"
+        android:weightSum="4">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/completed_layout"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Completed"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/completed_button"
+             />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_button"
+            android:drawableRight="@drawable/ic_mode_edit_white_24dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/delete_button"
+            android:drawableRight="@drawable/ic_delete_white_24dp"
+            android:layout_weight="1"/>
+
+        <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/description"
+        android:text="more>"
+            />
     </LinearLayout>
 
 

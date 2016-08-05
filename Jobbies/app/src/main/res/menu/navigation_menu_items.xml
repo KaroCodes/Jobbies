@@ -8,7 +8,7 @@
             android:title="Find" />
 
         <item
-            android:id="@+id/ofrer"
+            android:id="@+id/offer"
             android:icon="@drawable/ic_menu_manage"
             android:title="Offer" />
 

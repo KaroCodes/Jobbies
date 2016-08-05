@@ -18,7 +18,7 @@ public class ListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.list_view, container, false);
         ListView listview=(ListView) view.findViewById(R.id.list_view);
-        mAdapter = new myAdapter();
+        mAdapter = new myAdapter(1);
         listview.setAdapter(mAdapter);
         return view;
     }
