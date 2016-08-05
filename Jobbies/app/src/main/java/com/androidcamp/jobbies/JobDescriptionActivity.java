@@ -41,12 +41,21 @@ public class JobDescriptionActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+
+        Intent myI = getIntent();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         TextView title = (TextView) findViewById(R.id.job_description_title);
+        title.setText(myI.getStringExtra("title"));
         TextView description = (TextView) findViewById(R.id.job_description_description);
+        description.setText(myI.getStringExtra("description"));
         TextView time = (TextView) findViewById(R.id.job_description_time);
+        time.setText(myI.getStringExtra("time"));
         TextView address = (TextView) findViewById(R.id.job_description_adress);
+        address.setText(myI.getStringExtra("address"));
+
+        final String owner = getIntent().getStringExtra("owner");
+        final String job_name = getIntent().getStringExtra("title");
 
         findViewById(R.id.apply_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,11 +64,11 @@ public class JobDescriptionActivity extends AppCompatActivity
                 DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                 
                 // notifications:user_id -> name, job_title
-                DatabaseReference listRef = rootRef.child("notifications:" + UserIDs.getsInstance().getCurrentUserId());
+                DatabaseReference listRef = rootRef.child("notifications:" + owner);
                 DatabaseReference child = listRef.push();
                 HashMap<String, Object> fields = new HashMap<>();
                 fields.put("name", UserIDs.getsInstance().getCurrentUserName());
-                fields.put("job", "job will be here");
+                fields.put("job", job_name);
                 child.updateChildren(fields);
             }
         });

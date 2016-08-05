@@ -44,7 +44,7 @@ import java.util.ListIterator;
 
 public class MapsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
-
+    final String filter="filter";
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
     LatLng latLng;
@@ -141,6 +141,9 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
                         myIntent.putExtra("title", job.getTitle());
                         myIntent.putExtra("description", job.getShortDescription());
                         myIntent.putExtra("address", job.getDescription().getAddress_str());
+                        myIntent.putExtra("ID", job.getId());
+                        myIntent.putExtra("owner", job.getOwnerId());
+                        myIntent.putExtra("time", job.getDate().toString());
                         MapsActivity.this.startActivity(myIntent);
                     }
                 });
@@ -346,6 +349,12 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
             return true;
         }
+        else if (id == R.id.action_volunteer) {
+            Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+            intent.putExtra(filter,5);
+            startActivity(intent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -467,5 +476,18 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseNotificationHandler.getsInstance(MapsActivity.this).
+                registerDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseNotificationHandler.getsInstance(MapsActivity.this).
+                unregisterDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+
+    }
 }

@@ -72,28 +72,23 @@ public class MyOffers extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (id == R.id.find) {
 
-        if (id == R.id.account_settings) {
+            Intent MyOffersActivity = new Intent(MyOffers.this, ListActivity.class);
+            startActivity(MyOffersActivity);
+
+        }
+        else if (user == null) {
+            Intent AuthenticationActivity = new Intent(MyOffers.this, AuthenticationActivity.class);
+            startActivity(AuthenticationActivity);
+        }
+        else if (id == R.id.offer) {
+            Intent MyOffersActivity = new Intent(MyOffers.this, AddNewJobActivity.class);
+            startActivity(MyOffersActivity);
+        } else if (id == R.id.account_settings) {
             // Handle the camera action
         } else if (id == R.id.my_offers) {
-
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                Toast.makeText(MyOffers.this, user.getUid(),
-                        Toast.LENGTH_SHORT).show();
-                Intent MyOffersActivity = new Intent(MyOffers.this, MyOffers.class);
-                startActivity(MyOffersActivity);
-            }
-            else {
-                Toast.makeText(MyOffers.this, "no user",
-                        Toast.LENGTH_SHORT).show();
-                Intent AuthenticationActivity = new Intent(MyOffers.this, AuthenticationActivity.class);
-                startActivity(AuthenticationActivity);
-            }
-
-
-
-        } else if (id == R.id.applicants) {
 
         } else if (id == R.id.my_applications) {
             Intent intent = new Intent(MyOffers.this, MyApplications.class);
@@ -105,5 +100,20 @@ public class MyOffers extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseNotificationHandler.getsInstance(MyOffers.this).
+                registerDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseNotificationHandler.getsInstance(MyOffers.this).
+                unregisterDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+
     }
 }

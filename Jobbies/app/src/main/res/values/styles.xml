@@ -9,8 +9,7 @@
         <item name="android:buttonStyle">@style/button</item>
     </style>
 
-    <style name="button" parent="Widget.AppCompat.Button.Colored">
-    </style>
+    <style name="button" parent="Widget.AppCompat.Button.Colored"></style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

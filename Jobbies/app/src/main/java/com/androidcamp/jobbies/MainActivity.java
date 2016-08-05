@@ -197,14 +197,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (user == null) {
-            Intent AuthenticationActivity = new Intent(MainActivity.this, AuthenticationActivity.class);
-            startActivity(AuthenticationActivity);
+        if (id == R.id.find) {
+            Intent MyOffersActivity = new Intent(MainActivity.this, ListActivity.class);
+            startActivity(MyOffersActivity);
         }
 
-        if (id == R.id.find) {
-            Intent MyOffersActivity = new Intent(MainActivity.this, MapsActivity.class);
-            startActivity(MyOffersActivity);
+        else if (user == null) {
+            Intent AuthenticationActivity = new Intent(MainActivity.this, AuthenticationActivity.class);
+            startActivity(AuthenticationActivity);
+
         } else if (id == R.id.offer) {
             Intent MyOffersActivity = new Intent(MainActivity.this, AddNewJobActivity.class);
             startActivity(MyOffersActivity);
@@ -227,5 +228,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseNotificationHandler.getsInstance(MainActivity.this).
+                registerDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseNotificationHandler.getsInstance(MainActivity.this).
+                unregisterDatabaseListener(UserIDs.getsInstance().getCurrentUserId());
+
     }
 }
