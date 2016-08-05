@@ -38,6 +38,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -53,8 +54,11 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
     private GoogleMap mMap;
     public static Geocoder gc;
     private LatLng current;
-    private boolean changeLocation;
+    private boolean changeLocation = false;
     private String show_onmap_addr;
+    ArrayList<Job> jobs;
+
+    private int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +81,6 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        changeLocation = true;
-
         if (mGoogleApiClient == null)
         {
             buildGoogleApiClient();
@@ -86,6 +88,7 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
 
         gc = new Geocoder(MapsActivity.this);
         show_onmap_addr = null;
+        jobs = new ArrayList<Job>();
     }
 
 
@@ -122,12 +125,15 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         DatabaseProvider databaseProvider = new DatabaseProvider();
         databaseProvider.getJobs(null, 0, 0, null, null, new DatabaseProvider.GetJobListener() {
             @Override
-            public void apply(final Job job) {
+            public void apply(Job job) {
+                jobs.add(job);
                 addMarker(job);
 
                 mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                     @Override
                     public void onInfoWindowClick(Marker marker) {
+                        int position = (int) marker.getTag();
+                        Job job = jobs.get(position);
                         Intent myIntent = new Intent(MapsActivity.this, JobDescriptionActivity.class);
                         myIntent.putExtra("title", job.getTitle());
                         myIntent.putExtra("description", job.getShortDescription());
@@ -145,9 +151,7 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
 
         Intent intent = getIntent();
         show_onmap_addr = intent.getStringExtra("adress");
-        if (show_onmap_addr != null)
-            Log.d("ADDRESSS IS", show_onmap_addr);
-        /*
+
         if (show_onmap_addr != null)
         {
             Log.d("ADDRESSSSSS", show_onmap_addr);
@@ -162,13 +166,14 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
 
             mMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
-            show_onmap_addr = null;
+            //show_onmap_addr = null;
         }
         else
         {
+            changeLocation = true;
             Log.d("DEBUGGGG", "NULLLLLLL");
         }
-        */
+
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -322,6 +327,8 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
                 .position(jobAddress)
                 .title(job.getTitle())
                 .snippet(job.getShortDescription()));
+        jobMarker.setTag(index);
+        index++;
     }
 
     //public ArrayList<Job> getJobs() {

@@ -3,6 +3,7 @@ package com.androidcamp.jobbies;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,8 @@ public class jobDescriptionFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent mapActivity = new Intent(getActivity(), MapsActivity.class);
-                mapActivity.putExtra(adresslabel,adressView.getText());
+                Log.d("THEADDRESS IS", adressView.getText().toString());
+                mapActivity.putExtra(adresslabel,(String)adressView.getText());
                 startActivity(mapActivity);
             }
         });

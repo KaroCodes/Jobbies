@@ -12,7 +12,7 @@ public class ViewHolder {
     public TextView title;
     public TextView by;
     public TextView date;
-    public TextView more;
+    public Button more;
     public TextView description;
     public TextView payment;
     public Button delete_button;
