@@ -23,11 +23,15 @@ class myAdapter extends BaseAdapter {
     final int getJobsByUser=2;
     final int getApplicationsByUser=3;
     final int getApplicatsByUser=4;
+    final int getJobsVolunteer=5;
+    final int filterByPrice=6;
+
     //debugging
-    public myAdapter (int filter) {
+    public myAdapter (int filter, int fromPrice) {
         final long time = System.currentTimeMillis();
+        Date date = new Date();
         if(filter==getAllJobs) {
-            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null, 0, date, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
                     Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
@@ -38,7 +42,7 @@ class myAdapter extends BaseAdapter {
         }
 
         else if (filter==getJobsByUser) {
-            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null, 0, date, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
                     Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
@@ -49,7 +53,7 @@ class myAdapter extends BaseAdapter {
         }
 
         else if (filter==getApplicationsByUser) {
-            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null, 0, date, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
                     Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
@@ -60,7 +64,29 @@ class myAdapter extends BaseAdapter {
         }
 
         else if (filter==getApplicatsByUser) {
-            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+            databaseProvider.getJobs(null, 0, date, null, new DatabaseProvider.GetJobListener() {
+                @Override
+                public void apply(Job job) {
+                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    jobs.add(job);
+                    notifyDataSetChanged();
+                }
+            });
+        }
+
+        else if (filter==getJobsVolunteer) {
+            databaseProvider.getJobs(null, 0, date, null, new DatabaseProvider.GetJobListener() {
+                @Override
+                public void apply(Job job) {
+                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    jobs.add(job);
+                    notifyDataSetChanged();
+                }
+            });
+        }
+
+        else if (filter==filterByPrice) {
+            databaseProvider.getJobs(null, 0, date, null, new DatabaseProvider.GetJobListener() {
                 @Override
                 public void apply(Job job) {
                     Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));

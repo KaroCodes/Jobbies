@@ -26,7 +26,7 @@ public class myOffersFragment extends android.support.v4.app.Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.list_view, container, false);
         ListView listview=(ListView) v.findViewById(R.id.list_view);
-        mAdapter = new myAdapter(2);
+        mAdapter = new myAdapter(2,-1);
         listview.setAdapter(mAdapter);
 
         /*listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

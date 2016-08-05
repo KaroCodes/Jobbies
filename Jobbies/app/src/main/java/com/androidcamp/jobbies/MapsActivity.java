@@ -50,7 +50,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MapsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
-
+    final String filter="filter";
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
     LatLng latLng;
@@ -220,6 +220,12 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_list) {
             Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if (id == R.id.action_volunteer) {
+            Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+            intent.putExtra(filter,5);
             startActivity(intent);
             return true;
         }

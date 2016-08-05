@@ -16,11 +16,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class ListActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
-
+    final String filter="filter";
+    final String fromPrice="fromPrice";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -33,6 +36,7 @@ public class ListActivity extends AppCompatActivity implements  NavigationView.O
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
 
@@ -59,12 +63,21 @@ public class ListActivity extends AppCompatActivity implements  NavigationView.O
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_map) {
             Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
             startActivity(intent);
             return true;
         }
+        else if (id == R.id.action_volunteer) {
+            Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+            intent.putExtra(filter,5);
+            startActivity(intent);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
