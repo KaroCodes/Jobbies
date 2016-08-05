@@ -51,9 +51,10 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
     LatLng latLng;
 
     private GoogleMap mMap;
-    Geocoder gc;
+    public static Geocoder gc;
     private LatLng current;
     private boolean changeLocation;
+    private String show_onmap_addr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         }
 
         gc = new Geocoder(MapsActivity.this);
-
+        show_onmap_addr = null;
     }
 
 
@@ -140,6 +141,34 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
                 Log.d("IS CALLED", "APPLY CALLED");
             }
         });
+
+
+        Intent intent = getIntent();
+        show_onmap_addr = intent.getStringExtra("adress");
+        if (show_onmap_addr != null)
+            Log.d("ADDRESSS IS", show_onmap_addr);
+        /*
+        if (show_onmap_addr != null)
+        {
+            Log.d("ADDRESSSSSS", show_onmap_addr);
+            LatLng new_loc = new LatLng(0, 0);
+            try {
+                new_loc = new LatLng(gc.getFromLocationName(show_onmap_addr, 1).get(0).getLatitude(), gc.getFromLocationName(show_onmap_addr, 1).get(0).getLongitude());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new_loc).zoom(10).build();
+
+            mMap.animateCamera(CameraUpdateFactory
+                    .newCameraPosition(cameraPosition));
+            show_onmap_addr = null;
+        }
+        else
+        {
+            Log.d("DEBUGGGG", "NULLLLLLL");
+        }
+        */
     }
 
     protected synchronized void buildGoogleApiClient() {

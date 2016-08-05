@@ -1,5 +1,7 @@
 package com.androidcamp.jobbies;
 
+import android.location.Geocoder;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

@@ -38,9 +38,8 @@ public class jobDescriptionFragment extends Fragment {
         findOnMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String adress=adressView.getText().toString();
                 Intent mapActivity = new Intent(getActivity(), MapsActivity.class);
-                mapActivity.putExtra(adresslabel,adress);
+                mapActivity.putExtra(adresslabel,adressView.getText());
                 startActivity(mapActivity);
             }
         });
