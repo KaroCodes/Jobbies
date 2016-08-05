@@ -83,32 +83,6 @@ public class DatabaseProvider {
                     if (jobDescription == null) {
                         return;
                     }
-                    if (jobDescription.getPayment().getPrice() < price) {
-                        return;
-                    }
-                    if (tf != null && jobDescription.getDescription() != null && jobDescription.getDate().before(tf)) {
-                        return;
-                    }
-                    if (category != null && category.equals(jobDescription.getCategory())) {
-                        return;
-                    }
-
-                    /*if (jobDescription.getLatLng() == null) {
-                        return;
-                    }
-                    Location jobLocation = new Location(LocationManager.GPS_PROVIDER);
-                    jobLocation.setLatitude(jobDescription.getLatLng().latitude);
-                    jobLocation.setLongitude(jobDescription.getLatLng().longitude);
-
-                    if (jobDescription.getLatLng() != null && location != null) {
-                        Location currLocation = new Location(LocationManager.GPS_PROVIDER);
-                        currLocation.setLatitude(location.latitude);
-                        currLocation.setLongitude(location.longitude);
-
-                        if (currLocation.distanceTo(jobLocation) > radius) {
-                            return;
-                        }
-                    }*/
                     getUserById(jobDescription.getOwnerId(), new GetUserListener() {
                         @Override
                         public void apply(User user) {
