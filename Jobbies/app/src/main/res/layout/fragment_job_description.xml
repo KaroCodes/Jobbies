@@ -38,11 +38,18 @@
             android:id="@+id/job_description_time"
             android:text="Date and Time"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50px"
+            android:id="@+id/job_description_adress"
+            android:text="Adress"/>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/Show_on_map"
-            android:text="@string/show_on_map"/>
+            android:text="@string/show_on_map" />
     </LinearLayout>
 
     <RelativeLayout

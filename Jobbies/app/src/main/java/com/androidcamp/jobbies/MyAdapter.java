@@ -19,17 +19,56 @@ class myAdapter extends BaseAdapter {
 
     private final ArrayList<Job> jobs = new ArrayList<Job>();
     private DatabaseProvider databaseProvider=new DatabaseProvider();
+    final int getAllJobs=1;
+    final int getJobsByUser=2;
+    final int getApplicationsByUser=3;
+    final int getApplicatsByUser=4;
     //debugging
-    public myAdapter () {
+    public myAdapter (int filter) {
         final long time = System.currentTimeMillis();
-        databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
-            @Override
-            public void apply(Job job) {
-                Log.d("DATABASE","!!!!!! " + (System.currentTimeMillis() - time));
-                jobs.add(job);
-                notifyDataSetChanged();
-            }
-        });
+        if(filter==getAllJobs) {
+            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+                @Override
+                public void apply(Job job) {
+                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    jobs.add(job);
+                    notifyDataSetChanged();
+                }
+            });
+        }
+
+        else if (filter==getJobsByUser) {
+            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+                @Override
+                public void apply(Job job) {
+                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    jobs.add(job);
+                    notifyDataSetChanged();
+                }
+            });
+        }
+
+        else if (filter==getApplicationsByUser) {
+            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+                @Override
+                public void apply(Job job) {
+                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    jobs.add(job);
+                    notifyDataSetChanged();
+                }
+            });
+        }
+
+        else if (filter==getApplicatsByUser) {
+            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+                @Override
+                public void apply(Job job) {
+                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    jobs.add(job);
+                    notifyDataSetChanged();
+                }
+            });
+        }
 
 
        /* JobDescription firstJob=new JobDescription();
@@ -74,13 +113,12 @@ class myAdapter extends BaseAdapter {
             view=inflater.inflate(R.layout.job_card, null);
             holder=new ViewHolder();
             holder.title=((TextView) view.findViewById(R.id.title));
-            holder.by=((TextView) view.findViewById(R.id.by));
             //holder.description=((TextView) view.findViewById(R.id.description));
             //holder.payment=((TextView) view.findViewById(R.id.payment));
             holder.date=((TextView) view.findViewById(R.id.date));
             //holder.more=((TextView)  view.findViewById(R.id.more));
             Log.d("after more", holder.more + "");
-            holder.img=((ImageView) view.findViewById(R.id.image));
+
             view.setTag(holder);
         }
         else{
