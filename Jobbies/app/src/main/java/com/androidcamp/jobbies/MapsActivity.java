@@ -6,12 +6,13 @@ import android.content.pm.PackageManager;
 import android.location.Geocoder;
 
 import android.location.Location;
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
+
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -23,10 +24,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationListener;
@@ -40,11 +38,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
 public class MapsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
@@ -53,7 +46,7 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
     LatLng latLng;
 
     private GoogleMap mMap;
-    private ArrayList<JobDescription> jobs;
+    Geocoder gc;
     private LatLng current;
 
     @Override
@@ -82,6 +75,8 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
             buildGoogleApiClient();
         }
 
+        gc = new Geocoder(MapsActivity.this);
+
     }
 
 
@@ -109,11 +104,13 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         }
         mMap.setMyLocationEnabled(true);
 
-        Geocoder gc = new Geocoder(MapsActivity.this);
+
+
+
 
         final JobDescription job = new JobDescription("New job", "some other job", "Sidney, Australia", gc);
 
-        addMarker(job);
+        //addMarker(job);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(job.getLatLng()));
 
@@ -130,11 +127,31 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
                 MapsActivity.this.startActivity(myIntent);
             }
         });
+
+        DatabaseProvider databaseProvider = new DatabaseProvider();
+        databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+            @Override
+            public void apply(final Job job) {
+                job.setGeocoder(gc);
+                addMarker(job);
+
+                mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                    @Override
+                    public void onInfoWindowClick(Marker marker) {
+                        Intent myIntent = new Intent(MapsActivity.this, JobDescriptionActivity.class);
+                        myIntent.putExtra("title", job.getTitle());
+                        myIntent.putExtra("description", job.getShortDescription());
+                        myIntent.putExtra("address", job.getDescription().getAddress_str());
+                        MapsActivity.this.startActivity(myIntent);
+                    }
+                });
+                Log.d("IS CALLED", "APPLY CALLED");
+            }
+        });
     }
 
     protected synchronized void buildGoogleApiClient() {
         if (mGoogleApiClient == null) {
-            Toast.makeText(this, "buildGoogleApiClient", Toast.LENGTH_SHORT).show();
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
@@ -144,7 +161,7 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void addMarker(JobDescription job) {
+    public void addMarker(Job job) {
         LatLng jobAddress = job.getLatLng();
         Marker jobMarker = mMap.addMarker(new MarkerOptions()
                 .position(jobAddress)
@@ -152,43 +169,19 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
                 .snippet(job.getShortDescription()));
     }
 
-    public ArrayList<JobDescription> getJobs() {
-        return jobs;
-    }
+    //public ArrayList<Job> getJobs() {
+    //    return jobs;
+    //}
 
-    public void setJobs(ArrayList<JobDescription> jobs) {
+    /*public void setJobs(ArrayList<Job> jobs) {
         this.jobs = jobs;
-    }
+    }*/
 
     //TODO: retrieve from the database
     public void retreiveJobs() {
 
     }
 
-    public void displayAllJobs() {
-        Geocoder gc = new Geocoder(MapsActivity.this);
-        for (int i = 0; i < jobs.size(); i++) {
-            jobs.get(i).setGeocoder(gc);
-            final JobDescription job = jobs.get(i);
-            addMarker(job);
-
-            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                @Override
-                public void onInfoWindowClick(Marker marker) {
-                    Intent myIntent = new Intent(MapsActivity.this, JobDescriptionActivity.class);
-                    myIntent.putExtra("title", job.getTitle());
-                    myIntent.putExtra("description", job.getDescription());
-                    myIntent.putExtra("address", job.getAddress_str());
-                    MapsActivity.this.startActivity(myIntent);
-                }
-            });
-
-        }
-        //TODO: move the camera to a specific job
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(job.getLatLng()));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(current);
-
-    }
 
     @Override
     public void onBackPressed() {
@@ -259,7 +252,6 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        Toast.makeText(this,"onConnected",Toast.LENGTH_SHORT).show();
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         if (mLastLocation != null) {
@@ -280,14 +272,11 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onConnectionSuspended(int i) {
-        Toast.makeText(this,"onConnectionSuspended",Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(this,"onConnectionFailed",Toast.LENGTH_SHORT).show();
-
 
     }
 
@@ -318,8 +307,6 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
 
-        Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
-
         //zoom to current position:
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng).zoom(14).build();
@@ -330,5 +317,6 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         //LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
 
     }
+
 
 }

@@ -33,10 +33,6 @@ public class Job {
         description.setTitle(title);
     }
 
-    public String getDescription() {
-        return description.getDescription();
-    }
-
     public void setDescription(String description) {
         this.description.setDescription(description);
     }
@@ -96,6 +92,11 @@ public class Job {
     public String getShortDescription() {
         return description.getShortDescription();
     }
+
+    public JobDescription getDescription() {
+        return description;
+    }
+
 
     public String getName() {
         return user.getName();

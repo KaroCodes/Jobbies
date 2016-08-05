@@ -115,7 +115,7 @@ public class JobDescription {
     public LatLng getLatLng() {
         double longitude = 0;
         double latitude = 0;
-        if(addresses.size() > 0) {
+        if(addresses != null && addresses.size() > 0) {
             latitude= addresses.get(0).getLatitude();
             longitude= addresses.get(0).getLongitude();
         }
@@ -125,7 +125,7 @@ public class JobDescription {
 
     @JsonIgnore
     public String getShortDescription() {
-        return this.title + "\n" + this.getAddress_str();
+        return this.title + "\n" + this.getAddress_str() + "\n" + this.getDescription();
     }
 
     public List<Address> getAddresses() {
@@ -155,6 +155,7 @@ public class JobDescription {
         map.put("category", getCategory());
         map.put("date", getDate());
         map.put("isVoluntary", getIsVoluntary());
+            map.put("address_str", getAddress_str());
         return map;
     }
 
