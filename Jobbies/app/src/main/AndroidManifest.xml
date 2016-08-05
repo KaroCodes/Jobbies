@@ -72,6 +72,7 @@
             android:name=".FtilerActivity"
             android:label="@string/title_activity_ftiler"
             android:theme="@style/AppTheme"></activity>
+        <activity android:name=".MyApplications"></activity>
     </application>
 
 </manifest>
