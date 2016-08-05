@@ -8,7 +8,7 @@
     <string name="title_activity_add_new_job">Add new job</string>
 
     <string name="facebook_app_id">1770280953186518</string>
-    <string name="title_activity_authentication">AuthenticationActivity</string>
+    <string name="title_activity_authentication">Jobbies</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
