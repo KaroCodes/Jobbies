@@ -17,12 +17,61 @@ import java.util.Date;
  */
 class myAdapter extends BaseAdapter {
 
-    private ArrayList<JobDescription> jobs = new ArrayList<JobDescription>();
+    private final ArrayList<Job> jobs = new ArrayList<Job>();
+    private DatabaseProvider databaseProvider=new DatabaseProvider();
+    final int getAllJobs=1;
+    final int getJobsByUser=2;
+    final int getApplicationsByUser=3;
+    final int getApplicatsByUser=4;
     //debugging
-    public myAdapter () {
-        jobs = new ArrayList<>();
+    public myAdapter (int filter) {
+        final long time = System.currentTimeMillis();
+        if(filter==getAllJobs) {
+            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+                @Override
+                public void apply(Job job) {
+                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    jobs.add(job);
+                    notifyDataSetChanged();
+                }
+            });
+        }
 
-        JobDescription firstJob=new JobDescription();
+        else if (filter==getJobsByUser) {
+            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+                @Override
+                public void apply(Job job) {
+                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    jobs.add(job);
+                    notifyDataSetChanged();
+                }
+            });
+        }
+
+        else if (filter==getApplicationsByUser) {
+            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+                @Override
+                public void apply(Job job) {
+                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    jobs.add(job);
+                    notifyDataSetChanged();
+                }
+            });
+        }
+
+        else if (filter==getApplicatsByUser) {
+            databaseProvider.getJobs(null, 0, null, null, new DatabaseProvider.GetJobListener() {
+                @Override
+                public void apply(Job job) {
+                    Log.d("DATABASE", "!!!!!! " + (System.currentTimeMillis() - time));
+                    jobs.add(job);
+                    notifyDataSetChanged();
+                }
+            });
+        }
+
+
+       /* JobDescription firstJob=new JobDescription();
         firstJob.setTitle("first job");
         firstJob.setPayment(new Payment(10, Currency.getInstance("GBP")));
         firstJob.setDate(new Date());
@@ -32,13 +81,11 @@ class myAdapter extends BaseAdapter {
         secondJob.setTitle("second job");
         secondJob.setPayment(new Payment(10, Currency.getInstance("GBP")));
         secondJob.setDate(new Date());
-        jobs.add(secondJob);
+        jobs.add(secondJob);*/
+
+
     }
 
-    public void setQuotes(ArrayList<JobDescription> newJobs) {
-        jobs = newJobs;
-        notifyDataSetChanged();
-    }
 
     @Override
     public int getCount() {
@@ -66,13 +113,12 @@ class myAdapter extends BaseAdapter {
             view=inflater.inflate(R.layout.job_card, null);
             holder=new ViewHolder();
             holder.title=((TextView) view.findViewById(R.id.title));
-            holder.by=((TextView) view.findViewById(R.id.by));
             //holder.description=((TextView) view.findViewById(R.id.description));
             //holder.payment=((TextView) view.findViewById(R.id.payment));
             holder.date=((TextView) view.findViewById(R.id.date));
             //holder.more=((TextView)  view.findViewById(R.id.more));
             Log.d("after more", holder.more + "");
-            holder.img=((ImageView) view.findViewById(R.id.image));
+
             view.setTag(holder);
         }
         else{
@@ -80,11 +126,12 @@ class myAdapter extends BaseAdapter {
             holder=(ViewHolder) view.getTag();
         }
 
-        JobDescription currJob=jobs.get(i);
+        Job currJob=jobs.get(i);
+
         holder.title.setText(currJob.getTitle());
         // holder.by.setText(currJob.getTitle()); // need to change to something with the user
         //holder.payment.setText(Integer.toString(currJob.getPayment().getPrice()));
-        holder.date.setText(currJob.getDate().toString());
+        //holder.date.setText(currJob.getDate().toString());
            /* if(isMultipleDates(dates)) {
                holder.time2.setText(dates[1].toString());
                 holder.more.setText(R.string.more);
@@ -100,6 +147,10 @@ class myAdapter extends BaseAdapter {
 
         return view;
     }
+
+    public void getJobsListener(ViewHolder holder){
+
+    }
     private boolean isMultipleDates(Date[] dates){
         if(dates.length>1){
             return true;
@@ -107,6 +158,10 @@ class myAdapter extends BaseAdapter {
         else{
             return false;
         }
+    }
+
+    public void apply(Job job){
+        jobs.add(job);
     }
 
 }

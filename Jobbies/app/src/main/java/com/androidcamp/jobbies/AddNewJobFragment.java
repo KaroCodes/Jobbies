@@ -1,7 +1,9 @@
 package com.androidcamp.jobbies;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -77,7 +79,16 @@ public class AddNewJobFragment extends Fragment {
                     // go to detail view of your offer
                 }
                 else {
-                    Toast.makeText(getContext(), validationResult, Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage(validationResult)
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // do nothing
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             }
         });
@@ -86,18 +97,18 @@ public class AddNewJobFragment extends Fragment {
     private String validate() {
 
         if (titleEditText.getText().toString().isEmpty()) {
-            return "a";
+            return getString(R.string.validation_error_title);
         }
         if (descriptionEditText.getText().toString().isEmpty()) {
-            return "b";
+            return getString(R.string.validation_error_description);
         }
         if (categorySpinner.getSelectedItemPosition() == 0) {
-            return "c";
+            return getString(R.string.validation_error_category);
         }
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         if (calendar.before(new Date())) {
-            return "d";
+            return getString(R.string.validation_error_date);
         }
 
         return SUCCESS;

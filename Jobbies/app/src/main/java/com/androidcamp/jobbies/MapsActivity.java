@@ -28,6 +28,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationListener;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -37,6 +38,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MapsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -222,18 +225,34 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (id == R.id.find) {
 
-        if (id == R.id.account_settings) {
-            // Handle the camera action
-        } else if (id == R.id.my_offers) {
-
-        } else if (id == R.id.applied_for_me) {
-
-        } else if (id == R.id.my_applications) {
-
-        } else if (id == R.id.app_settings) {
+            Intent MyOffersActivity = new Intent(MapsActivity.this, ListActivity.class);
+            startActivity(MyOffersActivity);
 
         }
+        else if (user == null) {
+            Intent AuthenticationActivity = new Intent(MapsActivity.this, AuthenticationActivity.class);
+            startActivity(AuthenticationActivity);
+        }
+        else if (id == R.id.offer) {
+                Intent MyOffersActivity = new Intent(MapsActivity.this, AddNewJobActivity.class);
+                startActivity(MyOffersActivity);
+            } else if (id == R.id.account_settings) {
+                // Handle the camera action
+            } else if (id == R.id.my_offers) {
+                Intent MyOffersActivity = new Intent(MapsActivity.this, MyOffers.class);
+                startActivity(MyOffersActivity);
+            } else if (id == R.id.applied_for_me) {
+
+            } else if (id == R.id.my_applications) {
+
+            } else if (id == R.id.app_settings) {
+
+            }
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

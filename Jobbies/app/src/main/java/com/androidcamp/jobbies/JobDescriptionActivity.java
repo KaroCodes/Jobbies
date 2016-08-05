@@ -10,6 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Created by demouser on 8/4/16.
@@ -71,20 +75,34 @@ public class JobDescriptionActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (id == R.id.account_settings) {
-            // Handle the camera action
-        } else if (id == R.id.my_offers) {
-            Intent MyOffersActivity = new Intent(JobDescriptionActivity.this, MyOffers.class);
+
+        if (id == R.id.find) {
+
+            Intent MyOffersActivity = new Intent(JobDescriptionActivity.this, ListActivity.class);
             startActivity(MyOffersActivity);
 
-        } else if (id == R.id.applied_for_me) {
-
-        } else if (id == R.id.my_applications) {
-
-        } else if (id == R.id.app_settings) {
-
         }
+        else if (user == null) {
+            Intent AuthenticationActivity = new Intent(JobDescriptionActivity.this, AuthenticationActivity.class);
+            startActivity(AuthenticationActivity);
+        }
+        else if (id == R.id.offer) {
+                Intent MyOffersActivity = new Intent(JobDescriptionActivity.this, AddNewJobActivity.class);
+                startActivity(MyOffersActivity);
+            } else if (id == R.id.account_settings) {
+                // Handle the camera action
+            } else if (id == R.id.my_offers) {
+                Intent MyOffersActivity = new Intent(JobDescriptionActivity.this, MyOffers.class);
+                startActivity(MyOffersActivity);
+            } else if (id == R.id.applied_for_me) {
+
+            } else if (id == R.id.my_applications) {
+
+            } else if (id == R.id.app_settings) {
+
+            }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
