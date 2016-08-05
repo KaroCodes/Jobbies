@@ -82,8 +82,6 @@ public class JobDescriptionActivity extends AppCompatActivity
 
             Intent MyOffersActivity = new Intent(JobDescriptionActivity.this, ListActivity.class);
             startActivity(MyOffersActivity);
-
-<<<<<<< 775d79f9191edb02d3228fd10cde06f5735ff885
         }
         else if (user == null) {
             Intent AuthenticationActivity = new Intent(JobDescriptionActivity.this, AuthenticationActivity.class);
@@ -97,10 +95,7 @@ public class JobDescriptionActivity extends AppCompatActivity
             } else if (id == R.id.my_offers) {
                 Intent MyOffersActivity = new Intent(JobDescriptionActivity.this, MyOffers.class);
                 startActivity(MyOffersActivity);
-            } else if (id == R.id.applied_for_me) {
-=======
-        } else if (id == R.id.applicants) {
->>>>>>> Layout changes, authentication fixed, addess provided to JobDescription while creating offer.
+            } else if (id == R.id.applicants) {
 
             } else if (id == R.id.my_applications) {
 

@@ -117,20 +117,14 @@ public class AuthenticationActivity extends AppCompatActivity
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Log.d("MSG", "onAuthStateChanged:signed_in:" + user.getUid());
-<<<<<<< 775d79f9191edb02d3228fd10cde06f5735ff885
                     String user_id = user.getUid();
-                    User database_user = new User(user_id);
-                    database_user.setEmail(email);
-                    database_user.setName(name);
+                    //User database_user = new User(user_id);
+                    //database_user.setEmail(email);
+                    //database_user.setName(name);
                     // TODO save user, go to page
                     Intent intent = new Intent(AuthenticationActivity.this, next);
                     startActivity(intent);
-
-=======
                     finish();
-                    // user_id, name, email, TODO create user ecord
-                    // Goto page
->>>>>>> Layout changes, authentication fixed, addess provided to JobDescription while creating offer.
                 } else {
                     Log.d("MSG", "onAuthStateChanged:signed_out");
                 }

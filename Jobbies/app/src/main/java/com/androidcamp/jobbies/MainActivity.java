@@ -215,8 +215,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (id == R.id.find) {
                 Intent MyOffersActivity = new Intent(MainActivity.this, MapsActivity.class);
                 startActivity(MyOffersActivity);
-
-<<<<<<< 775d79f9191edb02d3228fd10cde06f5735ff885
             } else if (id == R.id.offer) {
                 Intent MyOffersActivity = new Intent(MainActivity.this, AddNewJobActivity.class);
                 startActivity(MyOffersActivity);
@@ -225,10 +223,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } else if (id == R.id.my_offers) {
                     Intent MyOffersActivity = new Intent(MainActivity.this, MyOffers.class);
                     startActivity(MyOffersActivity);
-            } else if (id == R.id.applied_for_me) {
-=======
         } else if (id == R.id.applicants) {
->>>>>>> Layout changes, authentication fixed, addess provided to JobDescription while creating offer.
 
             } else if (id == R.id.my_applications) {
 
