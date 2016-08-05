@@ -108,7 +108,7 @@ public class JobDescription {
         map.put("category", getCategory());
         map.put("date", new SimpleDateFormat("EEE MFF dd HH:mm:ss yyyy").format(getDate()));
         map.put("isVoluntary", getIsVoluntary());
-            map.put("address_str", getAddress_str());
+        map.put("address_str", getAddress_str());
         return map;
     }
 
